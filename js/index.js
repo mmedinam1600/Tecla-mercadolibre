@@ -1,5 +1,5 @@
 
-class mercadoService {
+class MercadoService {
   constructor(url, categoria) {
     this.url = url + categoria;
     console.log(this.url)
@@ -7,46 +7,67 @@ class mercadoService {
 
   async getTendryItems() {
     let mercadoUrl = await fetch(this.url);
-    let response = await mercadoUrl.json();
-    return response;
+    return await mercadoUrl.json();
   }
 }
 
-async function getCategories(MercadoService){
-  const itemsResultado = await MercadoService.getTendryItems();
-  console.log("categorias");
-  console.log(itemsResultado);
+const categorias = document.getElementById('categorias');
+const items = document.getElementById('categoria');
+
+/* Carga todas las categorias que hay en la etiqueta select */
+const getRequest = async (mercadoService) => await mercadoService.getTendryItems();
+
+async function renderCategories(data){
+  if(data.categories){
+    data.categories.forEach((category) =>{
+      let option = document.createElement('option');
+      option.setAttribute('id', `${category.id}`);
+      option.setAttribute('nombre', `${category.id}`);
+      option.setAttribute('value', `${category.id}`);
+      option.textContent = `${category.name}`;
+      categorias.appendChild(option);
+    });
+  } else{
+    console.error("El objeto no es el adecuado");
+  }
 }
 
-async function getMercadoService(MercadoService) {
-  const itemsResultado = await MercadoService.getTendryItems();
-  //console.log(itemsResultado);
+const categories = new MercadoService(`https://api.mercadolibre.com/sites/MLM`, "");
+getRequest(categories)
+  .then( (categorias) => renderCategories(categorias))
+  .catch( (err) => console.error("Error al cargar las categorias"));
 
-  //Se crea un div para que tome el style #pokeDiv div
 
-  let divPokemon = document.createElement('div');
-  divPokemon.setAttribute('id', 'divPokemon');
-  pokeDiv.appendChild(divPokemon);
-
-  //Se obtienen los datos de nombre y id para mostrar
-  let namePokemon = document.createElement('h1');
-  namePokemon.textContent = `${pokemonResultado.name} #${pokemonResultado.id}`;
-
-  //Se obtiene la imagen del pokemon, los sprites son usados en videojuegos para crear los gráficos.
-  let photoPokemon = document.createElement('img');
-  photoPokemon.setAttribute('src', pokemonResultado.sprites.front_default);
-  photoPokemon.style.width = '200px';
-
-  //Se añaden los elementos al div divPokemon
-  divPokemon.appendChild(namePokemon)
-  divPokemon.appendChild(photoPokemon)
-
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
 
-//let categoria = document.getElementById('categoria');
+async function renderItems(data) {
+  let i = 1;
+  removeAllChildNodes(items);
+  data.forEach( (item) => {
+    let button = document.createElement('a');
+    button.textContent = `${i}. ${item.keyword}`;
+    button.classList.add("box");
+    button.onclick = () => window.open(`${item.url}`);
+    items.appendChild(button);
+    i++;
+  });
+}
 
 
-const newItem = new mercadoService(`https://api.mercadolibre.com/trends/MLM/`, "MLM1747");
-const categories = new mercadoService(`https://api.mercadolibre.com/sites/MLM`, "");
-//getMercadoService(newItem);
-getCategories(categories);
+let newItem = new MercadoService(`https://api.mercadolibre.com/trends/MLM/`, "");
+getRequest(newItem)
+  .then( (item) => renderItems(item))
+  .catch( (err) => console.error("Error al cargar los items"));
+
+
+let changeCategory = (element) => {
+  let nuevaCategoria = element.value;
+  newItem = new MercadoService(`https://api.mercadolibre.com/trends/MLM/`, nuevaCategoria);
+  getRequest(newItem)
+    .then( (item) => renderItems(item))
+    .catch( (err) => console.error("Error al cargar los items"));
+}
