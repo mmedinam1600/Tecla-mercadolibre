@@ -47,6 +47,6 @@ async function getMercadoService(MercadoService) {
 
 
 const newItem = new mercadoService(`https://api.mercadolibre.com/trends/MLM/`, "MLM1747");
-const categories = new mercadoService(`https://api.mercadolibre.com/trends/MLM/`, "");
-getMercadoService(newItem);
+const categories = new mercadoService(`https://api.mercadolibre.com/sites/MLM`, "");
+//getMercadoService(newItem);
 getCategories(categories);
