@@ -10,8 +10,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 
-    
-
     <!-- Bootstrap core CSS -->
 <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -72,11 +70,21 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Album example</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <h1 class="fw-light">Tendencias en Mercado Libre</h1>
+        <p class="lead text-muted">Conoce lo que es lo que los usuarios tienden a buscar en México.</p>
         <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <select class="form-control" id="categoria">
+            <option id="default" name="">Tendencias top</option>
+            <option id="MLM1747" name="MLM1747">Accesorios para Vehículos</option>
+            <option id="MLM189530" name="MLM189530">Agro</option>
+            <option id="MLM1403" name="MLM1403">Alimentos y Bebidas</option>
+            <option id="MLM1071" name="MLM1071">Animales y Mascotas</option>
+            <option id="MLM1367" name="MLM1367">Antigüedades y Colecciones</option>
+            <option id="MLM1368" name="MLM1368">Arte, Papelería y Mercería</option>
+            <option id="MLM1743" name="MLM1743">Autos, Motos y Otros</option>
+            <option id="MLM1384" name="MLM1384">Bebés</option>
+            <option id="MLM1246" name="MLM1246">Belleza y Cuidado Personal</option>
+          </select>
         </p>
       </div>
     </div>
@@ -250,6 +258,7 @@
 
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/index.js"></script>
 
       
   </body>
