@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -13,41 +13,42 @@
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/all.css">
-    <link rel="stylesheet" href="./css/custom.css">
-    <script src="./assets/js/menu.js"></script>
+    <link rel="stylesheet" href="./assets/css/custom.css">
+
 </head>
 
 <body>
-<header>
-    <nav id="nav"></nav>
-</header>
-<main>
-    <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Tendencias en Mercado Libre</h1>
-                <p class="lead text-muted">Conoce lo que es lo que los usuarios tienden a buscar en México.</p>
-                <p>
-                    <select class="form-control" id="categorias" onchange="changeCategory(this);">
+    <header>
+        <nav id="nav"></nav>
+    </header>
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Tendencias en Mercado Libre</h1>
+                    <p class="lead text-muted">Conoce lo que es lo que los usuarios tienden a buscar en México.</p>
+                    <p>
+                        <select class="form-control" id="categorias" onchange="changeCategory(this);">
                         <option disabled selected>Selecciona una categoría</option>
                     </select>
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="container border border-dark rounded py-3 px-5 mb-5">
-        <div class="container">
-            <div id="categoria" class="wrapper">
+        <section class="container border border-dark rounded py-3 px-5 mb-5">
+            <div class="container">
+                <div id="categoria" class="wrapper">
 
+                </div>
             </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
-
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./js/index.js"></script>
-<script src="./js/carrito.js"></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/menu.js"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/carrito.js"></script>
 </body>
+
 </html>
