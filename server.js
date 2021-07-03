@@ -1,4 +1,4 @@
-//require('dotenv').config();
+require('dotenv').config();
 const http = require('http');
 
 
@@ -8,6 +8,6 @@ const server = http.createServer((req,res) =>{
   res.end();
 });
 
-server.listen(80, 'localhost', () =>{
-  //console.log(`Servidor escuchando en http://${process.env.HOST}:${process.env.PORT}`);
+server.listen(process.env.PORT, process.env.HOST, () =>{
+  console.log(`Servidor escuchando en http://${process.env.HOST}:${process.env.PORT}`);
 });
