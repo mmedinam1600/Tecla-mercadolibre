@@ -8,6 +8,6 @@ const server = http.createServer((req,res) =>{
   res.end();
 });
 
-server.listen(process.env.PORT, process.env.HOST, () =>{
+server.listen(process.env.PORT || 80, process.env.HOST, () =>{
   console.log(`Servidor escuchando en http://${process.env.HOST}:${process.env.PORT}`);
 });
