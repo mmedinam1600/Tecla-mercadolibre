@@ -1,0 +1,23 @@
+{
+  "name": "tecla_trabajo_backend_base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ELCapiPrice/tecla-mercadolibre.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ELCapiPrice/tecla-mercadolibre/issues"
+  },
+  "homepage": "https://github.com/ELCapiPrice/tecla-mercadolibre#readme",
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}

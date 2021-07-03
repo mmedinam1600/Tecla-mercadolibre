@@ -31,7 +31,7 @@ async function renderCategories(data){
   }
 }
 
-const categories = new MercadoService(`https://api.mercadolibre.com/sites/MLM`, "");
+const categories = new MercadoService(`https://api.mercadolibre.com/sites/MLM/`, "");
 getRequest(categories)
   .then( (categorias) => renderCategories(categorias))
   .catch( (err) => console.error("Error al cargar las categorias"));
