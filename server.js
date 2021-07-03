@@ -4,7 +4,7 @@ const http = require('http');
 
 
 const server = http.createServer((req,res) =>{
-  res.write();
+  res.write('Hola, estoy corriendo');
   res.end();
 });
 
