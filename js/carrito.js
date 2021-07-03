@@ -7,7 +7,7 @@ class Carrito{
   removeProducto(producto){
     let index = this.listaProductos.indexOf(producto);
     this.listaProductos.splice(index, 1);
-    this.restarPrecioProducto(producto.price, producto.quantity)
+    this.restarPrecioProducto(producto.price, producto.quantity);
     console.log("Se removio el producto");
   }
 

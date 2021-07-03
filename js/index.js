@@ -7,15 +7,14 @@ class MercadoService {
 
   async getTendryItems() {
     let mercadoUrl = await fetch(this.url);
-    return await mercadoUrl.json();
+    return mercadoUrl.json();
   }
 }
 
 const categorias = document.getElementById('categorias');
 const items = document.getElementById('categoria');
 
-/* Carga todas las categorias que hay en la etiqueta select */
-const getRequest = async (mercadoService) => await mercadoService.getTendryItems();
+const getRequest = async (mercadoService) => mercadoService.getTendryItems();
 
 async function renderCategories(data){
   if(data.categories){
@@ -37,16 +36,15 @@ getRequest(categories)
   .then( (categorias) => renderCategories(categorias))
   .catch( (err) => console.error("Error al cargar las categorias"));
 
-
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
+function removeOldItems(div) {
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
   }
 }
 
 async function renderItems(data) {
   let i = 1;
-  removeAllChildNodes(items);
+  removeOldItems(items);
   data.forEach( (item) => {
     let button = document.createElement('a');
     button.textContent = `${i}. ${item.keyword}`;
@@ -57,13 +55,6 @@ async function renderItems(data) {
   });
 }
 
-
-let newItem = new MercadoService(`https://api.mercadolibre.com/trends/MLM/`, "");
-getRequest(newItem)
-  .then( (item) => renderItems(item))
-  .catch( (err) => console.error("Error al cargar los items"));
-
-
 let changeCategory = (element) => {
   let nuevaCategoria = element.value;
   newItem = new MercadoService(`https://api.mercadolibre.com/trends/MLM/`, nuevaCategoria);
@@ -71,3 +62,9 @@ let changeCategory = (element) => {
     .then( (item) => renderItems(item))
     .catch( (err) => console.error("Error al cargar los items"));
 }
+
+/* Consulara la API por primera vez y obtendra el top items en cualquier categoría*/
+let newItem = new MercadoService(`https://api.mercadolibre.com/trends/MLM/`, "");
+getRequest(newItem)
+  .then( (item) => renderItems(item))
+  .catch( (err) => console.error("Error al cargar los items"));
