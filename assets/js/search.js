@@ -26,12 +26,8 @@ let renderResult = (requestMercadoService) =>{
   const maxPage = (page*10);
   const minPage = (page*10)-10;
   for(let i = minPage ; i < maxPage ; i++){
-    let id = requestMercadoService.results[i].id;
-    let title = requestMercadoService.results[i].title;
-    let condition = requestMercadoService.results[i].condition;
-    let price = requestMercadoService.results[i].price;
-    let thumbnail = requestMercadoService.results[i].thumbnail;
-    let permalink = requestMercadoService.results[i].permalink;
+    if(requestMercadoService.results[i] === undefined) break;
+    let { id, title, condition, price, thumbnail, permalink } = requestMercadoService.results[i];
     let card = `<div class="prod-info-main prod-wrap clearfix">
       <div class="row">
         <div class="col-md-5 col-sm-12 col-xs-12">
@@ -64,7 +60,7 @@ let renderResult = (requestMercadoService) =>{
         </div>
       </div>
     </div>`
-    let element = document.createElement('div')
+    let element = document.createElement('div');
     element.innerHTML = card;
     tarjetasDiv.appendChild(element);
   }
@@ -80,6 +76,5 @@ class MercadoService {
     return mercadoUrl.json();
   }
 }
-
 
 main();
