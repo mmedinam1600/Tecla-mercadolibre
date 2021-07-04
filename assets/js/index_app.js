@@ -50,6 +50,16 @@ async function renderCarousel(data, divToWrite) {
     }
 }
 
+let changeCategory = (element) => {
+    let nuevaCategoria = element.value;
+    newItem = new MercadoService(`https://api.mercadolibre.com/sites/MLM/search?`, "category=" + nuevaCategoria);
+    getRequest(newItem)
+        .then((item) => {
+            renderCardsProducts(item.results, elementsCarousel);
+        })
+        .catch((err) => console.error("Error al cargar los items"));
+}
+
 function readCookie(name) {
     var nameCookie = name + "=";
     var arrCookie = document.cookie.split(';');
@@ -61,16 +71,6 @@ function readCookie(name) {
         }
     }
     return null;
-}
-
-let changeCategory = (element) => {
-    let nuevaCategoria = element.value;
-    newItem = new MercadoService(`https://api.mercadolibre.com/sites/MLM/search?`, "category=" + nuevaCategoria);
-    getRequest(newItem)
-        .then((item) => {
-            renderCardsProducts(item.results, elementsCarousel);
-        })
-        .catch((err) => console.error("Error al cargar los items"));
 }
 
 function createCookie(dataElement, cantidad) {

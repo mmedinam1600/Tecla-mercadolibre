@@ -1,3 +1,10 @@
+/* 
+CUANDO QUITO LOS PRODUCTOS DE PRUEBA HAY ERRORES
+SEGUN YO ES POR EL CONTADOR, EN EL INDEX_APP
+DEFINI UNA COOKIE DE NOMBRE contador ESA COOKIE SE DEBERA TRAER PARA QUE LISTE LOS PRODUCTOS 
+EN EL CARRITO DE FORMA CORRECTA
+*/
+
 document.cookie = "idProducto_0=MLM908140304; max-age=3600; path=/";
 document.cookie = "idProducto_1=MLM929354154; max-age=3600; path=/";
 document.cookie = "idProducto_2=MLM921994310; max-age=3600; path=/";
@@ -17,82 +24,78 @@ const carritoDiv = document.getElementById('items');
 
 
 class MercadoService {
-  constructor(baseURL, idSearch) {
-    this.url = `${baseURL}${idSearch}`;
-  }
-
-  async searchItems() {
-    let mercadoUrl = await fetch(this.url);
-    return mercadoUrl.json();
-  }
-}
-
-
-
-function getCookieValueByName(name) {
-  let nameEQ = name + "=";
-  let ca = document.cookie.split(';');
-  for(let i=0;i < ca.length;i++) {
-    let c = ca[i];
-    while (c.charAt(0)===' ') c = c.substring(1,c.length);
-    if (c.indexOf(nameEQ) === 0) {
-      return decodeURIComponent( c.substring(nameEQ.length,c.length) );
+    constructor(baseURL, idSearch) {
+        this.url = `${baseURL}${idSearch}`;
     }
-  }
-  return null;
+
+    async searchItems() {
+        let mercadoUrl = await fetch(this.url);
+        return mercadoUrl.json();
+    }
 }
 
-const getCartFromCookies =  () => {
-  let id;
-  let idString = "";
-  //Buscamos en las cookies los primeros 10 articulos en el carrito
-  for( let i = 0; i < 10 ; i++){
-    id = getCookieValueByName( `idProducto_${i}`);
-    if(!id) continue; //Si no existe un articulo con esa id continuamos a la siguiente
-    idString += `${id},`
-  }
-  let item = new MercadoService(url, idString);
-  item.searchItems()
-    .then( (items) =>{
-      document.getElementById('totalItems').innerHTML = items.length;
-      renderItems(items);
+function readCookie(name) {
+    var nameCookie = name + "=";
+    var arrCookie = document.cookie.split(';');
+    for (var i = 0; i < arrCookie.length; i++) {
+        var c = arrCookie[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameCookie) == 0) {
+            return decodeURIComponent(c.substring(nameCookie.length, c.length));
+        }
+    }
+    return null;
+}
+
+const getCartFromCookies = () => {
+    let id;
+    let idString = "";
+    //Buscamos en las cookies los primeros 10 articulos en el carrito
+    for (let i = 0; i < 10; i++) {
+        id = readCookie(`idProducto_${i}`);
+        if (!id) continue; //Si no existe un articulo con esa id continuamos a la siguiente
+        idString += `${id},`
+    }
+    let item = new MercadoService(url, idString);
+    item.searchItems()
+        .then((items) => {
+            document.getElementById('totalItems').innerHTML = items.length;
+            renderItems(items);
+        });
+}
+
+const renderItems = (items) => {
+    let i = 0;
+    let total = 0;
+    items.forEach(item => {
+        let cantidad = readCookie(`cantidad_${i}`);
+        total += item.body.price * cantidad;
+        let itemHtml = `<li class="list-group-item d-flex justify-content-between lh-sm">
+                            <div>
+                            <h6 class="my-0">${item.body.title}</h6>
+                            <img src="${item.body.thumbnail}" alt="imagen">
+                            <span>Cantidad: ${cantidad}</span>
+                            </div>
+                            <span class="text-muted">$${item.body.price * cantidad}</span>
+                        </li>`
+        let element = document.createElement('div');
+        element.innerHTML = itemHtml;
+        carritoDiv.appendChild(element);
+        i++;
     });
-}
 
-const renderItems = (items) =>{
-  let i = 0;
-  let total = 0;
-  items.forEach(item => {
-    let cantidad = getCookieValueByName( `cantidad_${i}`);
-    total += item.body.price * cantidad;
-    let itemHtml = `
-    <li class="list-group-item d-flex justify-content-between lh-sm">
-            <div>
-              <h6 class="my-0">${item.body.title}</h6>
-              <img src="${item.body.thumbnail}" alt="imagen">
-              <span>Cantidad: ${cantidad}</span>
-            </div>
-            <span class="text-muted">$${item.body.price * cantidad}</span>
-          </li>`
+    let totalHtml = `<li class="list-group-item d-flex justify-content-between">
+                        <span>Total (MXN)</span>
+                        <strong>$${total}</strong>
+                    </li>`
     let element = document.createElement('div');
-    element.innerHTML = itemHtml;
+    element.innerHTML = totalHtml;
     carritoDiv.appendChild(element);
-    i++;
-  });
-
-  let totalHtml = `
-  <li class="list-group-item d-flex justify-content-between">
-              <span>Total (MXN)</span>
-            <strong>$${total}</strong>
-          </li>`
-  let element = document.createElement('div');
-  element.innerHTML = totalHtml;
-  carritoDiv.appendChild(element);
-  console.log(total);
+    console.log(total);
 }
 
 
-//var miCookie = getCookieValueByName( "cookie1" );
+//var miCookie = readCookie( "cookie1" );
 
 //console.log(miCookie);
 
