@@ -32,7 +32,7 @@ let renderResult = (requestMercadoService) =>{
       <div class="row">
         <div class="col-md-5 col-sm-12 col-xs-12">
           <div class="product-image">
-            <img src="${thumbnail}" class="img-responsive" style="width: 260px; height: 230px;">
+            <img src="${thumbnail}" class="img-fluid" alt="${title}" style="width: 260px; height: 230px;">
           </div>
         </div>
         <div class="col-md-7 col-sm-12 col-xs-12">
@@ -61,6 +61,7 @@ let renderResult = (requestMercadoService) =>{
       </div>
     </div>`
     let element = document.createElement('div');
+    element.setAttribute('class','col-md-6');
     element.innerHTML = card;
     tarjetasDiv.appendChild(element);
   }
