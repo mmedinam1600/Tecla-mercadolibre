@@ -29,6 +29,9 @@ async function renderCarousel(data, divToWrite) {
             imgProduct.setAttribute('src', element.thumbnail);
             imgProduct.setAttribute('width', '60%');
 
+            let priceProduct = document.createElement('h4');
+            priceProduct.innerHTML = 'Precio: $' + element.price;
+
             let option_col_2 = document.createElement('div');
             option_col_2.setAttribute('class', 'col-xs-12 col-sm-12 col-md-6 pt-4');
 
@@ -43,6 +46,7 @@ async function renderCarousel(data, divToWrite) {
             option.appendChild(option_col_2);
             option_col.appendChild(imgProduct);
             option_col_2.appendChild(titleProduct);
+            option_col_2.appendChild(priceProduct);
             option_col_2.appendChild(buttonProduct);
         }
     } else {
@@ -133,6 +137,9 @@ async function renderCardsProducts(data) {
                 imgProduct.setAttribute('class', 'card-img-top');
                 imgProduct.setAttribute('width', '100px');
 
+                let priceProduct = document.createElement('h5');
+                priceProduct.innerHTML = 'Precio: $' + product.price;
+
                 let cardBody = document.createElement('div');
                 cardBody.setAttribute('class', 'card-body');
 
@@ -146,6 +153,7 @@ async function renderCardsProducts(data) {
                 divCard.appendChild(imgProduct);
                 divCard.appendChild(cardBody);
                 cardBody.appendChild(cardHead);
+                cardBody.appendChild(priceProduct);
                 cardBody.appendChild(buttonCard);
 
             }
