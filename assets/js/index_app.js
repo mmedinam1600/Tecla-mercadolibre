@@ -39,7 +39,7 @@ async function renderCarousel(data, divToWrite) {
             titleProduct.innerHTML = element.title;
 
             let buttonProduct = document.createElement('p');
-            buttonProduct.innerHTML = `<button id="${element.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie(${element.id},1)">Añadir a carrito</button>`;
+            buttonProduct.innerHTML = `<button id="${element.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie('${element.id}',1)">Añadir a carrito</button>`;
 
             carouselItem.appendChild(option);
             option.appendChild(option_col);
@@ -78,8 +78,11 @@ function readCookie(name) {
 }
 
 function createCookie(dataElement, cantidad) {
-    let productoID = dataElement[1].id; //Obtiene una colecciónHTML y accedemos al elemento 1 console.log(dataElement);
+    console.log("dataElement: ");
+    console.log(dataElement);
+    let productoID = dataElement; //Obtiene una colecciónHTML y accedemos al elemento 1 console.log(dataElement);
     let contadorSum = parseInt(readCookie("contador"), 10) + 1;
+    console.log(productoID);
     document.cookie = "contador=" + contadorSum
     document.cookie = "idProducto_" + contadorSum + "=" + productoID + "; max-age=3600; path=/";
     document.cookie = "cantidad_" + contadorSum + "=" + cantidad + "; max-age=3600; path=/";
@@ -148,7 +151,7 @@ async function renderCardsProducts(data) {
                 cardHead.setAttribute('class', 'card-title');
 
                 let buttonCard = document.createElement('p');
-                buttonCard.innerHTML = `<button id="${product.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie(${product.id},1)">Añadir a carrito</button>`;
+                buttonCard.innerHTML = `<button id="${product.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie('${product.id}',1)">Añadir a carrito</button>`;
 
                 divCard.appendChild(imgProduct);
                 divCard.appendChild(cardBody);

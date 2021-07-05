@@ -5,6 +5,7 @@ DEFINI UNA COOKIE DE NOMBRE contador ESA COOKIE SE DEBERA TRAER PARA QUE LISTE L
 EN EL CARRITO DE FORMA CORRECTA
 */
 
+/*
 document.cookie = "idProducto_0=MLM908140304; max-age=3600; path=/";
 document.cookie = "idProducto_1=MLM929354154; max-age=3600; path=/";
 document.cookie = "idProducto_2=MLM921994310; max-age=3600; path=/";
@@ -14,6 +15,7 @@ document.cookie = "cantidad_0=1; max-age=3600; path=/";
 document.cookie = "cantidad_1=1; max-age=3600; path=/";
 document.cookie = "cantidad_2=1; max-age=3600; path=/";
 document.cookie = "cantidad_3=4; max-age=3600; path=/";
+ */
 
 
 const cookies = document.cookie;
@@ -51,7 +53,7 @@ const getCartFromCookies = () => {
     let id;
     let idString = "";
     //Buscamos en las cookies los primeros 10 articulos en el carrito
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i < 10; i++) {
         id = readCookie(`idProducto_${i}`);
         if (!id) continue; //Si no existe un articulo con esa id continuamos a la siguiente
         idString += `${id},`
@@ -59,13 +61,13 @@ const getCartFromCookies = () => {
     let item = new MercadoService(url, idString);
     item.searchItems()
         .then((items) => {
-            document.getElementById('totalItems').innerHTML = items.length;
+            document.getElementById('totalItems').innerHTML = items.length || '0';
             renderItems(items);
         });
 }
 
 const renderItems = (items) => {
-    let i = 0;
+    let i = 1;
     let total = 0;
     items.forEach(item => {
         let cantidad = readCookie(`cantidad_${i}`);

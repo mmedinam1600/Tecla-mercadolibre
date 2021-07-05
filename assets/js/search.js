@@ -9,7 +9,7 @@ const numberOfResultsDiv = document.getElementById('numberOfResults');
 const tarjetasDiv = document.getElementById('tarjetas');
 
 const main = async() => {
-    if (query === null) return console.log('Hola mundo xd');
+    //if (query === null) return console.log('Hola mundo xd');
     const service = new MercadoService(baseURL, query);
     const request = await service.searchItems();
     console.log(request);
@@ -17,7 +17,7 @@ const main = async() => {
 }
 
 function createCookie(dataElement, cantidad) {
-    let productoID = dataElement[1].id; //Obtiene una colecciónHTML y accedemos al elemento 1 console.log(dataElement);
+    let productoID = dataElement; //Obtiene una colecciónHTML y accedemos al elemento 1 console.log(dataElement);
     let contadorSum = parseInt(readCookie("contador"), 10) + 1;
     document.cookie = "contador=" + contadorSum
     document.cookie = "idProducto_" + contadorSum + "=" + productoID + "; max-age=3600; path=/";
@@ -63,7 +63,7 @@ let renderResult = (requestMercadoService) => {
                             <span>${condition}</span><br>
                             <span>Precio: ${price}</span>
                             <p>
-                              <button id="${id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie(${id},1)">
+                              <button id="${id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie('${id}',1)">
                                 Añadir a carrito
                               </button>
                             </p>
