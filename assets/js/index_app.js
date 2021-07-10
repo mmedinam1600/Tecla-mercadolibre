@@ -54,14 +54,19 @@ async function renderCarousel(data, divToWrite) {
     }
 }
 
-let changeCategory = (element) => {
+let changeCategory = async (element) => {
     let nuevaCategoria = element.value;
-    newItem = new MercadoService(`https://api.mercadolibre.com/sites/MLM/search?`, "category=" + nuevaCategoria);
-    getRequest(newItem)
+    let data = await fetch('http://localhost:3000/category');
+    console.log(data);
+    data = await data.json();
+    console.log(data);
+    //newItem = new MercadoService(`https://api.mercadolibre.com/sites/MLM/search?`, "category=" + nuevaCategoria);
+    /*getRequest(newItem)
         .then((item) => {
             renderCardsProducts(item.results, elementsCarousel);
         })
         .catch((err) => console.error("Error al cargar los items"));
+     */
 }
 
 function readCookie(name) {

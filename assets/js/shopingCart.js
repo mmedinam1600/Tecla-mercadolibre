@@ -30,6 +30,10 @@ class MercadoService {
         this.url = `${baseURL}${idSearch}`;
     }
 
+    getCategory(){
+
+    }
+
     async searchItems() {
         let mercadoUrl = await fetch(this.url);
         return mercadoUrl.json();
