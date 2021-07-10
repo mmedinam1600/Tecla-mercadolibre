@@ -9,18 +9,18 @@ const { getCategoriesApp } = require("./services/category.service")
 
 //Middlewares
 app.use(express.json());
-app.use(express.urlencoded( { extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 
 
 // Llamado único para cargar las categorias de Mercado Libre
-try{
-  getCategories().then( () => {
-    console.log(`Categorias cargadas en el arreglo`)
-  });
+try {
+    getCategories().then(() => {
+        console.log(`Categorias cargadas en el arreglo`)
+    });
 } catch (e) {
-  console.log(e.message);
+    console.log(e.message);
 }
 
 /*
@@ -45,20 +45,20 @@ GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (S
 
  */
 
-app.get('/category', async (req, res) => {
-  try{
-    const categories = await getCategoriesApp();
-    res.status(200).json(categories);
-  } catch (e){
-    console.error(`Error al traer las categorias: ${e.message}`);
-    res.status(404).json({
-      message: "Error 404"
-    });
-    throw new Error(`Error al traer las categorias: ${e.message}`);
-  }
+app.get('/category', async(req, res) => {
+    try {
+        const categories = await getCategoriesApp();
+        res.status(200).json(categories);
+    } catch (e) {
+        console.error(`Error al traer las categorias: ${e.message}`);
+        res.status(404).json({
+            message: "Error 404"
+        });
+        throw new Error(`Error al traer las categorias: ${e.message}`);
+    }
 });
 
 
-app.listen(process.env.PORT, () =>{
-  console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);
 });
