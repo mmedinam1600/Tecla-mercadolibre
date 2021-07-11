@@ -52,18 +52,6 @@ GET - /trends - Devuelve la lista de tendencias de Mercado libre
 GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (Solo id de mercado libre)
  */
 
-
-//Me equivoque e implemente una funcion y un middleware que deberia ser para products, te la dejo por si te ayuda con algo
-/*app.get('/products/:category/:page/:limit', validateParams, async(req, res) => {
-    try {
-        //console.log(req.params.category)
-        const productsByCategory = await getProductsByCategory(`${req.params.category}`, req.params.page, req.params.limit);
-        res.status(200).json(productsByCategory);
-    } catch (error) {
-        res.status(500).json(error.message);
-    }
-});*/
-
 app.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);
 });

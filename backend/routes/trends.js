@@ -10,7 +10,7 @@ router.get('/', async(req, res) => {
         const trends = await getTrends();
         res.status(200).json(trends);
     } catch (error) {
-        res.status(503).json(error.message);
+        res.status(503).json('Servicio no disponible: ' + error.message);
     }
 });
 
@@ -20,7 +20,7 @@ router.get('/:category', validateParamInUrl, async(req, res) => {
         const trendsByCategory = await getTrendsByCategory(`${req.params.category}`);
         res.status(200).json(trendsByCategory);
     } catch (error) {
-        res.status(500).json(error.message);
+        res.status(500).json("Error interno de servidor: " + error.message);
     }
 });
 
