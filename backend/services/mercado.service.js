@@ -24,6 +24,7 @@ const firstUpdateCategoriesFromMercadoLibre = async() => {
 }
 
 
+
 module.exports = {
     firstUpdateCategoriesFromMercadoLibre,
 }

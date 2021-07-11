@@ -8,6 +8,8 @@ const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.se
 const searchRoutes = require("./routes/search");
 const categoryRoutes = require("./routes/category");
 const productsRoutes = require("./routes/products");
+const trendsRoutes = require("./routes/trends");
+
 
 //Middlewares
 app.use(express.json());
@@ -18,6 +20,7 @@ app.use(cors());
 app.use('/search', searchRoutes); //Todas las rutas aqui tendran el prefijo /search
 app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo /category
 app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
+app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /trends
 
 
 // Llamado único para cargar las categorias de Mercado Libre
@@ -47,8 +50,19 @@ PUT - /products - Edita un producto por su id
 Tendencias (product_list.html)
 GET - /trends - Devuelve la lista de tendencias de Mercado libre
 GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (Solo id de mercado libre)
-
  */
+
+
+//Me equivoque e implemente una funcion y un middleware que deberia ser para products, te la dejo por si te ayuda con algo
+/*app.get('/products/:category/:page/:limit', validateParams, async(req, res) => {
+    try {
+        //console.log(req.params.category)
+        const productsByCategory = await getProductsByCategory(`${req.params.category}`, req.params.page, req.params.limit);
+        res.status(200).json(productsByCategory);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+});*/
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);
