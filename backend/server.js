@@ -3,10 +3,9 @@ const app = express();
 require('dotenv').config()
 const cors = require('cors');
 
-
-const { getCategories, getProductsByIds, searchProducts, getProductsByCategory } = require("./services/mercado.service");
+const { getCategories, getProductsByIds, searchProducts, getProductsByCategory, getTrends, getTrendsByCategory } = require("./services/mercado.service");
 const { getCategoriesApp } = require("./services/category.service");
-const { validateId, validateSearch,  } = require('./middleware/index');
+const { validateId, validateSearch, validateParamInUrl } = require('./middleware/index');
 
 //Middlewares
 app.use(express.json());
@@ -46,7 +45,7 @@ GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (S
 
  */
 
-app.get('/category', async (req, res) => {
+app.get('/category', async(req, res) => {
     try {
         const categories = await getCategoriesApp();
         res.status(200).json(categories);
@@ -59,12 +58,12 @@ app.get('/category', async (req, res) => {
     }
 });
 
-app.get('/products', validateId, async (req, res) => {
+app.get('/products', validateId, async(req, res) => {
     try {
         const { id } = req.query; //Obtenemos las ids que nos manden por parametros
         const products = await getProductsByIds(id); //Obtenemos un arreglo de productos encontrados
         res.status(200).json(products); //Devolvemos este arreglo y una respuesta exitosa
-    } catch (e){
+    } catch (e) {
         console.error(`Ocurrio un error al procesar la ruta GET /products Error: ${e.message}`);
         res.status(400).json({ 'error': `${e.message}` }); // El servidor no entendio su petición y devolvemos un mensaje de error
         throw new Error(`Ocurrio un error al procesar la ruta GET /products. Error: ${e.message}`);
@@ -72,18 +71,47 @@ app.get('/products', validateId, async (req, res) => {
 });
 
 //Validar que page sea un numero al igual que limit (limit solo puede ser 50)
-app.get('/search', validateSearch, async (req, res) => {
-    try{
+app.get('/search', validateSearch, async(req, res) => {
+    try {
         const { q, page = 1, limit = 10, category = "" } = req.query;
         const products = await searchProducts(q, page, limit, category);
-        res.status(200).json({products});
+        res.status(200).json({ products });
     } catch (e) {
         console.error(`Ocurrio un error al procesar la ruta GET /search Error: ${e.message}`);
-        res.status(400).json({ 'error': `${e.message}`});
+        res.status(400).json({ 'error': `${e.message}` });
         throw new Error(`Ocurrio un error al procesar la ruta GET /search. Error: ${e.message}`);
     }
 });
 
+app.get('/trends', async(req, res) => {
+    try {
+        const trends = await getTrends();
+        res.status(200).json(trends);
+    } catch (error) {
+        res.status(503).json(error.message);
+    }
+});
+
+app.get('/trends/:category', validateParamInUrl, async(req, res) => {
+    try {
+        //console.log(req.params.category)
+        const trendsByCategory = await getTrendsByCategory(`${req.params.category}`);
+        res.status(200).json(trendsByCategory);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+});
+
+//Me equivoque e implemente una funcion y un middleware que deberia ser para products, te la dejo por si te ayuda con algo
+/*app.get('/products/:category/:page/:limit', validateParams, async(req, res) => {
+    try {
+        //console.log(req.params.category)
+        const productsByCategory = await getProductsByCategory(`${req.params.category}`, req.params.page, req.params.limit);
+        res.status(200).json(productsByCategory);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+});*/
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);

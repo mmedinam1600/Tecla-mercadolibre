@@ -16,14 +16,14 @@ const getCategories = async() => {
     }
 }
 
-const getProductsByIds = async (ids) => {
-    try{
+const getProductsByIds = async(ids) => {
+    try {
         //En este arreglo se guardaran los productos encontrados satisfactoriamente con sus propiedades
         const arrayOfProducts = [];
         const productsURL = new MercadoClass(`items?ids=${ids}`); //Se intancia nuestro servicio
         const data = await productsURL.makeFech(); //Hacemos el llamado a la API de mercado libre
-        data.forEach( (product) => {
-            if(product.code === 200){ //Si el ID es correcta y nos entrego información, entonces lo agregamos al array
+        data.forEach((product) => {
+            if (product.code === 200) { //Si el ID es correcta y nos entrego información, entonces lo agregamos al array
                 arrayOfProducts.push({
                     'id': product.body.id,
                     'title': product.body.title,
@@ -35,15 +35,15 @@ const getProductsByIds = async (ids) => {
             }
         });
         return arrayOfProducts;
-    } catch (e){
-        throw new Error ("No se pudo procesar la solicitud getProductsByIds");
+    } catch (e) {
+        throw new Error("No se pudo procesar la solicitud getProductsByIds");
     }
 }
 
 const getProductsByCategory = async(category, page, products_per_page) => {
     //El Middleware de la llamada debe considerar que se incluyan page y products_per_page por defecto
-    const offset = parseInt((page - 1) * products_per_page);
-    const limit = products_per_page;
+    const offset = (parseInt(page) - 1) * parseInt(products_per_page);
+    const limit = parseInt(products_per_page);
     const listOfProducts = [];
     //Listado de productos por categoria, solamente traemos las propiedades que utilizamos en la app
     try {
@@ -67,7 +67,7 @@ const getProductsByCategory = async(category, page, products_per_page) => {
     }
 }
 
-const searchProducts = async (query, page , limit, category ) => {
+const searchProducts = async(query, page, limit, category) => {
     const offset = (page - 1) * limit;
     //En este arreglo se guardaran los productos encontrados satisfactoriamente con sus propiedades
     const arrayOfProducts = [];
@@ -94,6 +94,7 @@ const getTrends = async() => {
         const trendsURL = new MercadoClass(`trends/${process.env.SITE_ID}`);
         const dataTrends = await trendsURL.makeFech();
         //console.log(dataTrends);
+        //console.log(data); //Al descomentar esta línea entra el error.
         return dataTrends;
     } catch (error) {
         throw new Error("Error al obtener las tendencias de mercado libre");
