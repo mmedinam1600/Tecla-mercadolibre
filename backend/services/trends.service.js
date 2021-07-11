@@ -13,9 +13,7 @@ const getTrendsByCategory = async (category) => {
     //Tendencias por categoria en mismo formato de ML
     try {
         const trendsByCategoryURL = new MercadoClass(`trends/${process.env.SITE_ID}/${category}`);
-        const dataTrendsByCategory = await trendsByCategoryURL.makeFech();
-        //console.log(dataTrendsByCategory);
-        return dataTrendsByCategory;
+        return trendsByCategoryURL.makeFech();
     } catch (error) {
         throw new Error(`Error al obtener las tendencias de la categoria con id: ${category} de mercado libre`);
     }
@@ -31,9 +29,7 @@ const getTrends = async() => {
     //Tendencias de ML en mismo formato de MLs
     try {
         const trendsURL = new MercadoClass(`trends/${process.env.SITE_ID}`);
-        const dataTrends = await trendsURL.makeFech();
-        //console.log(dataTrends);
-        return dataTrends;
+        return trendsURL.makeFech();
     } catch (error) {
         throw new Error("Error al obtener las tendencias de mercado libre");
     }

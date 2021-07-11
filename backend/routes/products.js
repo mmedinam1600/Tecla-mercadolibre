@@ -4,7 +4,10 @@ const router = express.Router();
 const { validateId  } = require('../middleware/index');
 const {  getProductsByIds } = require("../services/product.service");
 
-// OBTENER PRODUCTOS POR ID
+/**
+ * Route GET http://localhost:3000/products
+ * Description. Devolvemos un arreglo de productos por su ID
+ */
 router.get('/', validateId, async (req, res) => {
     try {
         const { id } = req.query; //Obtenemos las ids que nos manden por parametros
@@ -17,10 +20,17 @@ router.get('/', validateId, async (req, res) => {
     }
 });
 
+/**
+ * Route POST http://localhost:3000/products
+ * Description. Agrega nuevos productos
+ */
 //AGREGAR NUEVOS PRODUCTOS
 router.post('/', async (req, res) => {
     try {
         const { id } = req.body;
+        res.status(200).json({
+            message: "OK"
+        });
     } catch (e) {
 
     }

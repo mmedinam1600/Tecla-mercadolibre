@@ -3,6 +3,10 @@ const router = express.Router();
 
 const { getCategoriesApp } = require("../services/category.service");
 
+/**
+ * Route GET http://localhost:3000/category
+ * Description. Devuelve las categorias de nuestra BD.
+ */
 router.get('/', async (req, res) => {
     try {
         const categories = await getCategoriesApp();

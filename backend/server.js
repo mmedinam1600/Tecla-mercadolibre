@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const cors = require('cors');
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
+const logger = require('morgan');
 
 const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
 
@@ -9,14 +12,22 @@ const searchRoutes = require("./routes/search");
 const categoryRoutes = require("./routes/category");
 const productsRoutes = require("./routes/products");
 const trendsRoutes = require("./routes/trends");
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 500,
+    message: "Demasiadas peticiones con la misma IP, intenta de nuevo en 10 minutos."
+});
 
 
-//Middlewares
+// MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(limiter);
+app.use(helmet());
+app.use(logger('dev'));
 
-//Routes
+// ROUTES
 app.use('/search', searchRoutes); //Todas las rutas aqui tendran el prefijo /search
 app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo /category
 app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
@@ -26,7 +37,7 @@ app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /tre
 // Llamado único para cargar las categorias de Mercado Libre
 try {
     firstUpdateCategoriesFromMercadoLibre().then(() => {
-        console.log(`Categorias cargadas en el arreglo`)
+        console.log(`Categorias cargadas en nuestra BD`)
     });
 } catch (e) {
     console.log(e.message);

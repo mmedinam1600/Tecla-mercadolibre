@@ -5,7 +5,7 @@ const existCategory = (req, res, next) => {
         const { id } = req.body;
         const result = findCategory(id);
         if (result) {
-            return res.status(409).json('La category ya existe');
+            return res.status(409).json('La categoria ya existe');
         }
         next();
     } catch (e) {
@@ -13,6 +13,14 @@ const existCategory = (req, res, next) => {
     }
 }
 
+/**
+ *
+ * Description. Valida que el parámetro id este en el query
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
 const validateId = (req, res, next) => {
     try {
         const { id } = req.query;
@@ -29,6 +37,14 @@ const validateId = (req, res, next) => {
     }
 }
 
+/**
+ *
+ * Description. Verifica que los parámetros de busqueda sean correctos
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
 const validateSearch = (req, res, next) => {
     try {
         const { page = 1, limit = 10 } = req.query;
@@ -42,9 +58,17 @@ const validateSearch = (req, res, next) => {
             'message': e.message
         });
     }
-
 }
 
+/**
+ *
+ * Description. Valida que la longitud sea mayor a 3 porque las categorias de ML contienen el SITE_ID (3 digitos)
+ *
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
 const validateParamInUrl = (req, res, next) => {
     const { category, page, limit } = req.params;
     //console.log(category.length);

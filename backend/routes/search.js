@@ -4,7 +4,10 @@ const router = express.Router();
 const { validateSearch } = require('../middleware/index');
 const { searchProducts } = require("../services/product.service");
 
-
+/**
+ * Route http://localhost:3000/search
+ * Description. Nos devuelve un arreglo de productos con una palabra de busqueda o categoria.
+ */
 router.get('/', validateSearch, async (req, res) => {
     try{
         const { q, page = 1, limit = 10, category = "" } = req.query;
