@@ -16,8 +16,28 @@ const getCategories = async() => {
     }
 }
 
-const getProductById = () => {
-
+const getProductsByIds = async (ids) => {
+    try{
+        //En este arreglo se guardaran los productos encontrados satisfactoriamente con sus propiedades
+        const arrayOfProducts = [];
+        const productsURL = new MercadoClass(`items?ids=${ids}`); //Se intancia nuestro servicio
+        const data = await productsURL.makeFech(); //Hacemos el llamado a la API de mercado libre
+        data.forEach( (product) => {
+            if(product.code === 200){ //Si el ID es correcta y nos entrego información, entonces lo agregamos al array
+                arrayOfProducts.push({
+                    'id': product.body.id,
+                    'title': product.body.title,
+                    'thumbnail': product.body.thumbnail,
+                    'price': product.body.price,
+                    'condition': product.body.condition,
+                    'permalink': product.body.permalink
+                });
+            }
+        });
+        return arrayOfProducts;
+    } catch (e){
+        throw new Error ("No se pudo procesar la solicitud getProductsByIds");
+    }
 }
 
 const getProductsByCategory = async(category, page, products_per_page) => {
@@ -47,8 +67,13 @@ const getProductsByCategory = async(category, page, products_per_page) => {
     }
 }
 
-const searchProducts = () => {
-
+const searchProducts = async (query, page , limit, category ) => {
+    const offset = (page - 1) * limit;
+    //En este arreglo se guardaran los productos encontrados satisfactoriamente con sus propiedades
+    const arrayOfProducts = [];
+    const productsURL = new MercadoClass(`sites/${process.env.SITE_ID}/search?q=${query}&offset=${offset}&limit=${limit}&category=${category}`); //Se intancia nuestro servicio
+    const data = await productsURL.makeFech();
+    return data;
 }
 
 const getTrendsByCategory = async(category) => {
@@ -81,5 +106,7 @@ module.exports = {
     getCategories,
     getTrends,
     getTrendsByCategory,
-    getProductsByCategory
+    getProductsByCategory,
+    getProductsByIds,
+    searchProducts
 }

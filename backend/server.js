@@ -4,8 +4,9 @@ require('dotenv').config()
 const cors = require('cors');
 
 
-const { getCategories } = require("./services/mercado.service")
-const { getCategoriesApp } = require("./services/category.service")
+const { getCategories, getProductsByIds, searchProducts, getProductsByCategory } = require("./services/mercado.service");
+const { getCategoriesApp } = require("./services/category.service");
+const { validateId, validateSearch,  } = require('./middleware/index');
 
 //Middlewares
 app.use(express.json());
@@ -45,7 +46,7 @@ GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (S
 
  */
 
-app.get('/category', async(req, res) => {
+app.get('/category', async (req, res) => {
     try {
         const categories = await getCategoriesApp();
         res.status(200).json(categories);
@@ -55,6 +56,31 @@ app.get('/category', async(req, res) => {
             message: "Error 404"
         });
         throw new Error(`Error al traer las categorias: ${e.message}`);
+    }
+});
+
+app.get('/products', validateId, async (req, res) => {
+    try {
+        const { id } = req.query; //Obtenemos las ids que nos manden por parametros
+        const products = await getProductsByIds(id); //Obtenemos un arreglo de productos encontrados
+        res.status(200).json(products); //Devolvemos este arreglo y una respuesta exitosa
+    } catch (e){
+        console.error(`Ocurrio un error al procesar la ruta GET /products Error: ${e.message}`);
+        res.status(400).json({ 'error': `${e.message}` }); // El servidor no entendio su petición y devolvemos un mensaje de error
+        throw new Error(`Ocurrio un error al procesar la ruta GET /products. Error: ${e.message}`);
+    }
+});
+
+//Validar que page sea un numero al igual que limit (limit solo puede ser 50)
+app.get('/search', validateSearch, async (req, res) => {
+    try{
+        const { q, page = 1, limit = 10, category = "" } = req.query;
+        const products = await searchProducts(q, page, limit, category);
+        res.status(200).json({products});
+    } catch (e) {
+        console.error(`Ocurrio un error al procesar la ruta GET /search Error: ${e.message}`);
+        res.status(400).json({ 'error': `${e.message}`});
+        throw new Error(`Ocurrio un error al procesar la ruta GET /search. Error: ${e.message}`);
     }
 });
 
