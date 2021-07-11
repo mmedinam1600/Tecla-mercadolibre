@@ -1,23 +1,28 @@
 const express = require('express');
 const app = express();
-require('dotenv').config()
+require('dotenv').config();
 const cors = require('cors');
 
+const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
 
-const { getCategories, getProductsByIds, searchProducts, getProductsByCategory } = require("./services/mercado.service");
-const { getCategoriesApp } = require("./services/category.service");
-const { validateId, validateSearch,  } = require('./middleware/index');
+const searchRoutes = require("./routes/search");
+const categoryRoutes = require("./routes/category");
+const productsRoutes = require("./routes/products");
 
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+//Routes
+app.use('/search', searchRoutes); //Todas las rutas aqui tendran el prefijo /search
+app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo /category
+app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
 
 
 // Llamado único para cargar las categorias de Mercado Libre
 try {
-    getCategories().then(() => {
+    firstUpdateCategoriesFromMercadoLibre().then(() => {
         console.log(`Categorias cargadas en el arreglo`)
     });
 } catch (e) {
@@ -25,7 +30,6 @@ try {
 }
 
 /*
-
 Las categorias de momento solo se crean o se borran.
 GET /category - devuelve el array de categorias de la APP, suma de elementos de categorias de mercado libre + las de la APP
 POST /category - Crear nueva categoria. Necesiario un id y un name.
@@ -45,45 +49,6 @@ GET - /trends - Devuelve la lista de tendencias de Mercado libre
 GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (Solo id de mercado libre)
 
  */
-
-app.get('/category', async (req, res) => {
-    try {
-        const categories = await getCategoriesApp();
-        res.status(200).json(categories);
-    } catch (e) {
-        console.error(`Error al traer las categorias: ${e.message}`);
-        res.status(404).json({
-            message: "Error 404"
-        });
-        throw new Error(`Error al traer las categorias: ${e.message}`);
-    }
-});
-
-app.get('/products', validateId, async (req, res) => {
-    try {
-        const { id } = req.query; //Obtenemos las ids que nos manden por parametros
-        const products = await getProductsByIds(id); //Obtenemos un arreglo de productos encontrados
-        res.status(200).json(products); //Devolvemos este arreglo y una respuesta exitosa
-    } catch (e){
-        console.error(`Ocurrio un error al procesar la ruta GET /products Error: ${e.message}`);
-        res.status(400).json({ 'error': `${e.message}` }); // El servidor no entendio su petición y devolvemos un mensaje de error
-        throw new Error(`Ocurrio un error al procesar la ruta GET /products. Error: ${e.message}`);
-    }
-});
-
-//Validar que page sea un numero al igual que limit (limit solo puede ser 50)
-app.get('/search', validateSearch, async (req, res) => {
-    try{
-        const { q, page = 1, limit = 10, category = "" } = req.query;
-        const products = await searchProducts(q, page, limit, category);
-        res.status(200).json({products});
-    } catch (e) {
-        console.error(`Ocurrio un error al procesar la ruta GET /search Error: ${e.message}`);
-        res.status(400).json({ 'error': `${e.message}`});
-        throw new Error(`Ocurrio un error al procesar la ruta GET /search. Error: ${e.message}`);
-    }
-});
-
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);

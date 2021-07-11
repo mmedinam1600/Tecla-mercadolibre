@@ -1,7 +1,6 @@
 
 //Los ID'S de la APP son númericos, mientras que los de mercado libre son alfanuméricos o string.
-const categories = [];
-
+const arrayOfCategories = [];
 
 let idApp = 0;
 
@@ -14,7 +13,7 @@ class Category {
 
 
 module.exports = {
-  categories,
+  arrayOfCategories,
   Category
 }
 

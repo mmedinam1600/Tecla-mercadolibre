@@ -1,9 +1,9 @@
-const { getCategories } = require('./mercado.service');
-const { Category, categories } = require('../db/Categories');
+const { firstUpdateCategoriesFromMercadoLibre } = require('./mercado.service');
+const { Category, arrayOfCategories } = require('../db/CategoriesClass');
 
 const findCategory = (id) => {
-  if (categories.length > 0) {
-    const categoryExists = categories.some((category) => {
+  if (arrayOfCategories.length > 0) {
+    const categoryExists = arrayOfCategories.some((category) => {
       return category.id == id;
     });
     return categoryExists;
@@ -12,7 +12,7 @@ const findCategory = (id) => {
 }
 
 const getCategoriesApp = async () => {
-  return categories;
+  return arrayOfCategories;
 }
 
 
