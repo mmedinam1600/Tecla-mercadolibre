@@ -8,14 +8,14 @@ const { searchProducts } = require("../services/product.service");
  * Route http://localhost:3000/search
  * Description. Nos devuelve un arreglo de productos con una palabra de busqueda o categoria.
  */
-router.get('/', validateSearch, async (req, res) => {
-    try{
-        const { q, page = 1, limit = 10, category = "" } = req.query;
+router.get('/', validateSearch, async(req, res) => {
+    try {
+        const { q = "", page = 1, limit = 10, category = "" } = req.query;
         const products = await searchProducts(q, page, limit, category);
         res.status(200).json(products);
     } catch (e) {
         console.error(`Ocurrio un error al procesar la ruta GET /search Error: ${e.message}`);
-        res.status(400).json({ 'error': `${e.message}`});
+        res.status(400).json({ 'error': `${e.message}` });
         throw new Error(`Ocurrio un error al procesar la ruta GET /search. Error: ${e.message}`);
     }
 });
