@@ -35,7 +35,9 @@ desplegarCarrito();
 const renderItems = (items) => {
     let i = 1;
     let total = 0;
-    document.getElementById('totalItems').innerHTML = items.length;
+    if(items.length > 1){
+        document.getElementById('totalItems').innerHTML = items.length;
+    }
     items.forEach(item => {
         const cantidad = parseInt(localStorage.getItem(item.id));
         total += item.price * cantidad;

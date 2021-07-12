@@ -34,6 +34,10 @@ const removeCart = (idProducto) => {
     return alert("No tienes este articulo en el carrito");
 }
 
+const clearCart = () => {
+    localStorage.clear();
+}
+
 function CheckBrowser() {
     return 'localStorage' in window && window['localStorage'] !== null;
 }
