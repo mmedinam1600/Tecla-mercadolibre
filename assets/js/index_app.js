@@ -10,7 +10,7 @@ async function renderCarousel(data, divToWrite) {
             const element = data[valorRandomId];
 
             let option = document.createElement('div');
-            option.setAttribute('id', `${element.id}`);
+            option.setAttribute('id', `carousel_${element.id}`);
             option.setAttribute('class', 'row');
 
             let option_col = document.createElement('div');
@@ -30,7 +30,18 @@ async function renderCarousel(data, divToWrite) {
             titleProduct.innerHTML = element.title;
 
             let buttonProduct = document.createElement('p');
-            buttonProduct.innerHTML = `<button id="${element.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie('${element.id}',1)">Añadir a carrito</button>`;
+            buttonProduct.innerHTML = `
+                <form name="ShoppingList">
+                        <label for="${element.id}" class="visually-hidden">Cantidad</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="button" value="+" class="btn btn-primary me-1" onclick="addCart('${element.id}');"/>
+                                <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${element.id}');"/>
+                            </div>
+                            <input type="number" class="form-control" id="${element.id}" placeholder="Cantidad" value="1">
+                        </div>
+                    </form>
+            `;
 
             carouselItem.appendChild(option);
             option.appendChild(option_col);
@@ -67,7 +78,7 @@ async function renderCardsProducts(data) {
 
                 let divCard = document.createElement('div');
                 divCard.setAttribute('class', 'card');
-                divCard.setAttribute('id', `${product.id}`);
+                divCard.setAttribute('id', `Card_${product.id}`);
                 divCard.setAttribute('style', 'width: 18rem;');
                 divCol.appendChild(divCard);
 
@@ -88,7 +99,18 @@ async function renderCardsProducts(data) {
                 cardHead.setAttribute('class', 'card-title');
 
                 let buttonCard = document.createElement('p');
-                buttonCard.innerHTML = `<button id="${product.id}" class="btn btn-lg btn-primary" href="#" onclick="createCookie('${product.id}',1)">Añadir a carrito</button>`;
+                buttonCard.innerHTML = `
+                    <form name="ShoppingList">
+                        <label for="${product.id}" class="visually-hidden">Cantidad</label>
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <input type="button" value="+" class="btn btn-primary me-1" onclick="addCart('${product.id}');"/>
+                                <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${product.id}');"/>
+                            </div>
+                            <input type="number" class="form-control" id="${product.id}" placeholder="Cantidad" value="1">
+                        </div>
+                    </form>
+                `;
 
                 divCard.appendChild(imgProduct);
                 divCard.appendChild(cardBody);
