@@ -7,7 +7,7 @@
     <a href="https://github.com/ELCapiPrice/tecla-mercadolibre"><strong>Explora los documentos »</strong></a>
     <br />
     <br />
-    <a href="http://144.126.133.10:8081/">View Demo</a>
+    <a href="http://144.126.133.10:3000/">View Demo</a>
     ·
     <a href="https://tecla-mercado-libre.atlassian.net/jira/software/projects/TML/boards/1">Nuestro Jira</a>
     ·
@@ -49,9 +49,9 @@
 <!-- ABOUT THE PROJECT -->
 ## Acerca Del Proyecto
 
-[![Product Name Screen Shot][product-screenshot]](http://144.126.133.10:8081/)
-[![Product Name Screen Shot][product-screenshot2]](http://144.126.133.10:8081/)
-[![Product Name Screen Shot][product-screenshot3]](http://144.126.133.10:8081/)
+[![Product Name Screen Shot][product-screenshot]](http://144.126.133.10:3000/)
+[![Product Name Screen Shot][product-screenshot2]](http://144.126.133.10:3000/)
+[![Product Name Screen Shot][product-screenshot3]](http://144.126.133.10:3000/)
 
 Este proyecto es para el aprendizaje de backend en el bootcamp de Tecla.
 

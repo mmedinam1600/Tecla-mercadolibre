@@ -5,6 +5,7 @@ const cors = require('cors');
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const logger = require('morgan');
+const path = require('path');
 
 const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
 
@@ -62,6 +63,13 @@ Tendencias (product_list.html)
 GET - /trends - Devuelve la lista de tendencias de Mercado libre
 GET - /trends/{categoryID} - Devuelve la lista de tendencias de Mercado libre (Solo id de mercado libre)
  */
+
+/*
+ Carpeta pública
+ */
+//--------------Public------------------\\
+app.use(express.static(path.join(__dirname,'public')));
+//---------------------------------------\\
 
 app.listen(process.env.PORT, () => {
     console.log(`Servidor iniciado en http://localhost:${process.env.PORT}`);
