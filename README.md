@@ -28,19 +28,19 @@
     <li>
       <a href="#acerca-del-proyecto">Acerca del proyecto</a>
       <ul>
-        <li><a href="#built-with">Construido con</a></li>
+        <li><a href="#construido-con">Construido con</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Comenzar</a>
+      <a href="#comenzar">Comenzar</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisitos</a></li>
-        <li><a href="#installation">Instalación</a></li>
+        <li><a href="#prerequisitos">Prerequisitos</a></li>
+        <li><a href="#instalación">Instalación</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Uso</a></li>
-    <li><a href="#license">Licencias</a></li>
-    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#uso">Uso</a></li>
+    <li><a href="#licencia">Licencias</a></li>
+    <li><a href="#contacto">Contacto</a></li>
   </ol>
 </details>
 
