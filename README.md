@@ -128,7 +128,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contacto
 
-Samuel Alberto - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Samuel Alberto - [Sam-Hdez](https://github.com/Sam-Hdez) - https://github.com/Sam-Hdez
 Miguel Angel - [Facebook](https://www.facebook.com/Medina.Martinez.Miguel) - elcapiprice19@gmail.com
 
 Project Link: [https://github.com/ELCapiPrice/tecla-mercadolibre](https://github.com/ELCapiPrice/tecla-mercadolibre)
