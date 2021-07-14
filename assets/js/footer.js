@@ -1,6 +1,6 @@
 /* PETICION AJAX FOOTER*/
 var xhr = new XMLHttpRequest();
-xhr.open('POST', 'footer.html');
+xhr.open('GET', 'footer.html');
 xhr.setRequestHeader('Content-Type', 'text/plain');
 xhr.send();
 xhr.onload = function(data) {
