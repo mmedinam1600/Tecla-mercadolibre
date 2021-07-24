@@ -1,0 +1,28 @@
+
+doctype html
+html(lang="es")
+    head
+        title Tecla Tienda Online
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no maximum-scale=1, user-scalable=no")
+        meta(name="description" content="La tienda más baráta de todo el mundo.")
+        meta(name="author" content="Samuel, Miguel")
+        // Bootstrap core CSS
+        link(href='/assets/dist/css/bootstrap.min.css' rel='stylesheet')
+        link(rel='stylesheet' href='./assets/css/style.css')
+        link(rel='stylesheet' href='./assets/css/custom.css')
+        link(rel='stylesheet' href='./assets/css/all.css')
+        // Custom styles for this template
+        link(href='/assets/dist/css/carousel.css' rel='stylesheet')
+        block head
+    body(onload="showPage();" style="margin:0;")
+        #loader
+        include ../Partitials/navUser
+        block body
+        include ../Partitials/footer
+        script(src='/assets/dist/js/bootstrap.bundle.min.js')
+        script(src='/assets/js/custom.js')
+        link(href='/assets/dist/css/hamburgers.css' rel='stylesheet')
+        //script(src='./assets/js/menu.js')
+        //script(src='./assets/js/footer.js')
+        block scripts

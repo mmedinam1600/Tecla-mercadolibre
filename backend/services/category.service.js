@@ -3,7 +3,7 @@ const { arrayOfCategories } = require('../db/CategoriesClass');
 
 /**
  *
- * Description.
+ * Description. Busca en nuestra DB si ya existe la categoria con el id
  *
  * @param {String | Number} id - Identificador de la categoría
  * @returns {boolean} - Nos indica si una categoria ya existe en la BD.

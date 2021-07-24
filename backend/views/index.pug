@@ -1,0 +1,34 @@
+extends ./Layout/Layout_Index.pug
+
+block head
+block body
+    main(id="myDiv")
+        #myCarousel.carousel.slide(data-bs-ride='carousel')
+            .carousel-indicators
+                button.active(type='button' data-bs-target='#myCarousel' data-bs-slide-to='0' aria-current='true' aria-label='Slide 1')
+                button(type='button' data-bs-target='#myCarousel' data-bs-slide-to='1' aria-label='Slide 2')
+                button(type='button' data-bs-target='#myCarousel' data-bs-slide-to='2' aria-label='Slide 3')
+            .carousel-inner
+                #carousel-1-1.carousel-item.p-4.text-center.active(style='background-color: #DEF2F1;')
+                #carousel-1-2.carousel-item.p-4.text-center(style='background-color: #DEF2F1;')
+                #carousel-1-3.carousel-item.p-4.text-center(style='background-color: #DEF2F1;')
+            button.carousel-control-prev(type='button' data-bs-target='#myCarousel' data-bs-slide='prev')
+                span.carousel-control-prev-icon(aria-hidden='true')
+                span.visually-hidden Previous
+            button.carousel-control-next(type='button' data-bs-target='#myCarousel' data-bs-slide='next')
+                span.carousel-control-next-icon(aria-hidden='true')
+                span.visually-hidden Next
+        .container.marketing
+            section.text-center.container
+                .row.py-lg-5
+                    .col-lg-6.col-md-8.mx-auto
+                        h1.fw-light Tendencias en Mercado Libre
+                        p.lead.text-muted Conoce lo que es lo que los usuarios tienden a buscar en M&eacute;xico.
+                        p
+                            select#categorias.form-control(onchange='changeCategory(this);')
+                                option(disabled='' selected='') Selecciona una categor&iacute;a
+            #listProducts.row
+block scripts
+    script(src='./assets/js/index_app.js')
+    script(src='./assets/js/select_option_categories.js')
+    script(src='./assets/js/storage.js')

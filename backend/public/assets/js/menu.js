@@ -1,6 +1,4 @@
-
-
-/*
+/* 
     Live server no permite cargar el recurso nav.html
 
 */

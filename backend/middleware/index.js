@@ -1,5 +1,6 @@
 const { findCategory } = require('../services/category.service')
 
+
 const existCategory = (req, res, next) => {
     try {
         const { id } = req.body;
@@ -62,7 +63,7 @@ const validateSearch = (req, res, next) => {
 
 /**
  *
- * Description. Valida que la longitud sea mayor a 3 porque las categorias de ML contienen el SITE_ID (3 digitos)
+ * Description. Valida que la longitud de la categoria sea mayor a 3 porque las categorias de ML contienen el SITE_ID (3 digitos)
  *
  * @param req
  * @param res

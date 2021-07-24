@@ -4,8 +4,8 @@
   "description": "",
   "main": "./backend/server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --tls-min-v1.0 ./backend/server.js",
+    "dev": "npx nodemon --tls-min-v1.0"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,9 @@
     "express-rate-limit": "^5.3.0",
     "helmet": "^4.6.0",
     "morgan": "^1.10.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.5",
+    "tedious": "^11.2.0"
   }
 }
