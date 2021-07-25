@@ -60,6 +60,23 @@ Users.init({
     createdAt: 'created_at'
 });
 
+async function CreateDefaultUsers(){
+    try {
+        await Users.sync({ alter: true }); //Verifica el estado de la tabla y luego realiza los cambios para que coincida con el modelo
+        let users = await Rols.count();
+        if (users == 0) {
+            const admin = await Users.create({ first_name: "Administrador", last_name: "", email: "admin"});
+            const user = await Users.create({ name: "seller" });
+            const seller = await Users.create({ name: "administrator" });
+            console.log('Roles de usuario creados correctamente.');
+        } else {
+            console.log('Roles de usuario existentes: ' + users);
+        }
+    } catch (error) {
+        console.log('Error en la creación de roles ' + error);
+    }
+}
+
 async function CreateTableUsers() {
     await Users.sync();
 }
@@ -71,7 +88,7 @@ async function SearchUser(user) {
         if (user_status == null) {
             return ({ message: 'Correo electrónico válido', status: true });
         } else {
-            return ({ message: 'Correo electrónico en existencia', status: false });;
+            return ({ message: 'Correo electrónico en existencia', status: false });
         }
     } catch (error) {
         throw new Error('Error en la función SearchUser: ' + error.message);
