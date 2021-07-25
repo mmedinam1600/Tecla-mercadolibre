@@ -1,9 +1,9 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize('tecla_mercadolibre', null, null, {
     dialect: 'mssql',
-    host: process.env.DB_HOST,
+    server: process.env.DB_HOST, //server en local OK host en produccion
     port: process.env.DB_PORT,
     dialectOptions: {
         authentication: {
@@ -20,5 +20,6 @@ const sequelize = new Sequelize('tecla_mercadolibre', null, null, {
 
 module.exports = {
     sequelize,
-    DataTypes
+    DataTypes,
+    Model
 }

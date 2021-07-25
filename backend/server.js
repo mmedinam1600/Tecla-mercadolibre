@@ -31,39 +31,32 @@ const searchRoutes = require("./routes/search");
 const categoryRoutes = require("./routes/category");
 const productsRoutes = require("./routes/products");
 const trendsRoutes = require("./routes/trends");
+const userRoutes = require("./routes/users");
 
 app.use('/search', searchRoutes); //Todas las rutas aqui tendran el prefijo /search
 app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo /category
 app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
 app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /trends
-
-// VIEW ENGINE
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'pug');
-
-//app.get('/', (req, res) => {
-//    res.render("index.pug");
-//})
-
+app.use('/user', userRoutes); //Todas las rutas aqui tendran el prefijo /user
 
 /*
  Carpeta pública
  */
 //--------------Public------------------\\
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 //---------------------------------------\\
 
-async function startServer(){
-    try{
+async function startServer() {
+    try {
         await sequelize.authenticate();
         console.log('Conexión iniciada.');
-        const server = app.listen(process.env.PORT || 3001, () => {
+        const server = app.listen(process.env.PORT || 3001, async() => {
             console.log(`Servidor iniciado en http://localhost:${server.address().port}`);
         });
         const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
         await firstUpdateCategoriesFromMercadoLibre();
     } catch (e) {
-        console.log('No se pudo iniciar correctamente\n' + e.message );
+        console.log('No se pudo iniciar correctamente\n' + e.message);
     }
 }
 
