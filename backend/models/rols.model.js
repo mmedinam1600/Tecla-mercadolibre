@@ -17,18 +17,18 @@ const Rols = sequelize.define('Rols',{
     createdAt: 'created_at'
 });
 
-async function CreateTable(){
+async function CreateTable() {
     await Rol.sync(); //Crea la tabla con el modelo asignado si no existe
 }
 
 async function LoadingRoles() {
     try {
-        await Rol.sync({ alter: true }); //Verifica el estado de la tabla y luego realiza los cambios para que coincida con el modelo
-        let roles = await Rol.count();
+        await Rols.sync({ alter: true }); //Verifica el estado de la tabla y luego realiza los cambios para que coincida con el modelo
+        let roles = await Rols.count();
         if (roles == 0) {
-            const user = await Rol.create({ name: "user" });
-            const seller = await Rol.create({ name: "seller" });
-            const administrator = await Rol.create({ name: "administrator" });
+            const user = await Rols.create({ name: "user" });
+            const seller = await Rols.create({ name: "seller" });
+            const administrator = await Rols.create({ name: "administrator" });
             console.log('Roles de usuario creados correctamente.');
         } else {
             console.log('Roles de usuario existentes: ' + roles);
@@ -40,5 +40,6 @@ async function LoadingRoles() {
 
 module.exports = {
     CreateTable,
-    LoadingRoles
+    LoadingRoles,
+    Rols
 }

@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const { sequelize } = require('../db/conexion');
+const { LoadingRoles } = require('../models/rols.model');
 
 async function createModels(){
     console.log("**********************************");
@@ -25,6 +26,7 @@ async function createModels(){
         console.log("GENERANDO MODELOS...");
         await sequelize.sync( );
         console.log(`*******************************`);
+        LoadingRoles()
     } catch (e) {
         throw new Error("Error al generar los modelos en la base de datos. ERROR: " + e.message);
     }
