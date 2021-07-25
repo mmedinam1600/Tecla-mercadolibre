@@ -60,27 +60,60 @@ Users.init({
     createdAt: 'created_at'
 });
 
+class User {
+    constructor(data) {
+        this.first_name = data.first_name,
+            this.last_name = data.last_name,
+            this.email = data.email,
+            this.password = data.password
+    }
+}
+
 async function CreateTableUsers() {
     await Users.sync();
 }
 
-async function SearchUser(user) {
+async function SearchUser(data) {
     try {
-        let user_status = await Users.findOne({ where: { email: user.email } });
-        //console.log(user_status);
-        if (user_status == null) {
-            return ({ message: 'Correo electrónico válido', status: true });
+        let userResultado = await Users.findOne({ where: { email: data.email } });
+        if (userResultado) {
+            let user = {
+                user_id: userResultado.dataValues.user_id,
+                first_name: userResultado.dataValues.first_name,
+                last_name: userResultado.dataValues.last_name,
+                email: userResultado.dataValues.email,
+                password: userResultado.dataValues.encrypted_password,
+                country_code: userResultado.dataValues.country_code,
+                mobile_number: userResultado.dataValues.mobile_number,
+                rol_id: userResultado.dataValues.rol_id,
+                active: userResultado.dataValues.active,
+            }
+            return user;
         } else {
-            return ({ message: 'Correo electrónico en existencia', status: false });;
+            throw new Error('El usuario no existe');
         }
     } catch (error) {
         throw new Error('Error en la función SearchUser: ' + error.message);
     }
 }
 
+async function ValidateUser(user) {
+    try {
+        let user_status = await Users.findOne({ where: { email: user.email } });
+        //console.log(user_status);
+        if (user_status == null) {
+            return ({ message: 'Correo electrónico válido', status: true });
+        } else {
+            return ({ message: 'Correo electrónico en existencia', status: false });
+        }
+    } catch (error) {
+        throw new Error('Error en la función ValidateUser: ' + error.message);
+    }
+}
+
 async function CreateUser(user) {
     try {
-        let userFind = await SearchUser(user);
+        let userFind = await ValidateUser(user);
         if (userFind.status) {
             //Creación de usuario
             //Se une la pass con el email para una longitud más larga de caracteres y hacerla unica con ayuda del email
@@ -101,17 +134,54 @@ async function CreateUser(user) {
 
 async function ListAllUsers() {
     try {
-        let listUser = await Users.findAll({ attributes: { user_id, first_name, last_name, email, country_code, mobile_number, rol_id, active } });
-        console.log(listUser);
+        let listUser = await Users.findAll();
         return listUser;
     } catch (error) {
         throw new Error('Error en la función ListAllUsers: ' + error.message);
     }
 }
 
+async function UpdateUser(data) {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+async function DeleteUser(data) {
+    try {
+        let user_status = await Users.findOne({ where: { email: user.email } });
+        user_status.active = 0;
+        user_status.save();
+        return user_status;
+    } catch (error) {
+        throw new Error('Error en la función DeleteUser: ' + error.message);
+    }
+}
+
+async function isAdmin(data) {
+    try {
+        let user_status = await Users.findOne({ where: { email: data } });
+        console.log(user_status.rol_id);
+        if (user_status.rol_id == 3) {
+            return ({ message: 'Usuario administrador', status: true });
+        } else {
+            return ({ message: 'Nivel de usuario no válido', status: false });;
+        }
+    } catch (error) {
+        throw new Error('Error en la función isAdmin: ' + error.message);
+    }
+}
+
 module.exports = {
+    User,
     CreateTableUsers,
-    SearchUser,
+    ValidateUser,
     CreateUser,
-    ListAllUsers
+    ListAllUsers,
+    isAdmin,
+    DeleteUser,
+    UpdateUser,
+    SearchUser
 }
