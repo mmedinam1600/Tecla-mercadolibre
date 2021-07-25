@@ -1,7 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 require('dotenv').config();
+const config = require('../config/config.json');
 
-const sequelize = new Sequelize('tecla_mercadolibre', null, null, {
+console.log(process.env.DB_HOST);
+
+const sequelize = new Sequelize(config.database.name, null, null, {
     dialect: 'mssql',
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -20,5 +23,6 @@ const sequelize = new Sequelize('tecla_mercadolibre', null, null, {
 
 module.exports = {
     sequelize,
-    DataTypes
+    DataTypes,
+    Model
 }

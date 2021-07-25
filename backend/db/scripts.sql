@@ -2,18 +2,18 @@ CREATE DATABASE tecla_mercadolibre;
 
 USE tecla_mercadolibre;
 
-CREATE TABLE Rol(
+CREATE TABLE RolModel(
     rol_id INT NOT NULL IDENTITY(1,1),
     name VARCHAR(25) NOT NULL,
     PRIMARY KEY(rol_id),
 );
 
 
-INSERT INTO Rol(name) VALUES('user'); /* Este rol puede listar sus productos en la tienda, agregar su dirección */
-INSERT INTO Rol(name) VALUES('moderator'); /* Este rol puede eliminar productos inadecuados de la tienda */
-INSERT INTO Rol(name) VALUES('administrator'); /* Este rol puede crear categorias y asignar roles */
+INSERT INTO RolModel(name) VALUES('user'); /* Este rol puede listar sus productos en la tienda, agregar su dirección */
+INSERT INTO RolModel(name) VALUES('moderator'); /* Este rol puede eliminar productos inadecuados de la tienda */
+INSERT INTO RolModel(name) VALUES('administrator'); /* Este rol puede crear categorias y asignar roles */
 
-SELECT * FROM Rol;
+SELECT * FROM RolModel;
 
 CREATE TABLE Users(
     user_id INT NOT NULL IDENTITY(1,1), /* ID incremental de 1 comenzando en 1 */
@@ -23,12 +23,12 @@ CREATE TABLE Users(
     encrypted_password VARCHAR(255) NOT NULL, /* Pendiente por revisar la longitud del cifrado a utilizar */
     country_code SMALLINT, /* solo ocupa 2 bytes y longitud de hasta 5 numeros */
     mobile_number VARCHAR(10), /* número telefonico */
-    rol_id INT DEFAULT 1, /* Rol del usuario  */
+    rol_id INT DEFAULT 1, /* RolModel del usuario  */
     active BIT DEFAULT 1, /* 0 = NO | 1 = SI */
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, /* Fecha del usuario actualizado */
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, /* Fecha del usuario creado */
     PRIMARY KEY(user_id),
-    FOREIGN KEY(rol_id) REFERENCES Rol(rol_id),
+    FOREIGN KEY(rol_id) REFERENCES RolModel(rol_id),
 );
 
 INSERT INTO Users
@@ -53,8 +53,8 @@ SELECT * FROM Users;
 /* Obtener usuarios con el rol administrador */
 SELECT *
 FROM Users
-INNER JOIN Rol on Users.rol_id = Rol.rol_id
-WHERE Rol.name = 'administrator';
+INNER JOIN RolModel on Users.rol_id = RolModel.rol_id
+WHERE RolModel.name = 'administrator';
 
 CREATE TABLE Addresses(
     address_id int NOT NULL IDENTITY(1,1),

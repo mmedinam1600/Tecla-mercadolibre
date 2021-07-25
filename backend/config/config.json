@@ -1,0 +1,10 @@
+{
+  "limiter": {
+    "minutes": 10,
+    "max": 500,
+    "message": "Demasiadas peticiones con la misma IP, intenta de nuevo en 10 minutos."
+  },
+  "database": {
+    "name": "tecla_mercadolibre"
+  }
+}

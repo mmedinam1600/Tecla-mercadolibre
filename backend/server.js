@@ -4,21 +4,14 @@ const express = require('express'),
     helmet = require("helmet"),
     logger = require('morgan'),
     path = require('path'),
-    { sequelize } = require('./db/conexion');
+    { sequelize } = require('./db/conexion'),
+    { limiter } = require('./middleware/midd.limiter');
 require('dotenv').config();
 
 // GLOBAL APP
 const app = express();
 
-// CONFIG
-const limiter = rateLimit({
-    windowMs: 10 * 60 * 1000,
-    max: 500,
-    message: "Demasiadas peticiones con la misma IP, intenta de nuevo en 10 minutos."
-});
-
-
-// MIDDLEWARES
+// MIDDLEWARES GLOBALES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -37,18 +30,9 @@ app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo 
 app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
 app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /trends
 
-// VIEW ENGINE
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'pug');
 
-//app.get('/', (req, res) => {
-//    res.render("index.pug");
-//})
+const { createModels }  = require('./db/createModels');
 
-
-/*
- Carpeta pública
- */
 //--------------Public------------------\\
 app.use(express.static(path.join(__dirname,'public')));
 //---------------------------------------\\
@@ -56,14 +40,17 @@ app.use(express.static(path.join(__dirname,'public')));
 async function startServer(){
     try{
         await sequelize.authenticate();
-        console.log('Conexión iniciada.');
-        const server = app.listen(process.env.PORT || 3001, () => {
+        console.log('Conexión EXITOSA.');
+
+        const server = app.listen(process.env.PORT || 3001,() => {
             console.log(`Servidor iniciado en http://localhost:${server.address().port}`);
         });
-        const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
-        await firstUpdateCategoriesFromMercadoLibre();
+        await createModels();
+
+        //const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
+        //await firstUpdateCategoriesFromMercadoLibre();
     } catch (e) {
-        console.log('No se pudo iniciar correctamente\n' + e.message );
+        console.error('ERROR al iniciar el servidor: \n' + e );
     }
 }
 
