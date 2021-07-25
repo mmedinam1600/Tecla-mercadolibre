@@ -6,7 +6,7 @@ console.log(process.env.DB_HOST);
 
 const sequelize = new Sequelize(config.database.name, null, null, {
     dialect: 'mssql',
-    host: process.env.DB_HOST, //server en local OK host en produccion
+    host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialectOptions: {
         authentication: {

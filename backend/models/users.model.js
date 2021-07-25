@@ -1,7 +1,8 @@
 const { sequelize, DataTypes, Model } = require('../db/conexion');
+const { Rols } = require('./rols.model');
 
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
-const saltRounds = 10; //No de bits aleatorios entre más hay más seguridad pero tarda más la respuesta
+const saltRounds = 10; //rondas salt entre más hay más seguridad pero tarda más la respuesta
 
 class Users extends Model {}
 
@@ -42,7 +43,7 @@ Users.init({
         defaultValue: 1,
         references: {
             // Modelo de referencia
-            model: 'Rols',
+            model: Rols,
             // Nombre de la columna de referencia
             key: 'rol_id',
         }
@@ -79,11 +80,7 @@ async function SearchUser(user) {
 
 async function CreateUser(user) {
     try {
-        console.log(user);
-        console.log(user.password + user.email);
         let userFind = await SearchUser(user);
-        console.log('estatus user find');
-        console.log(userFind.status);
         if (userFind.status) {
             //Creación de usuario
             //Se une la pass con el email para una longitud más larga de caracteres y hacerla unica con ayuda del email
@@ -93,19 +90,28 @@ async function CreateUser(user) {
                 email: user.email,
                 encrypted_password: await bcrypt.hashSync(user.password + user.email, saltRounds)
             });
-            console.log(creacionStatus);
             return creacionStatus;
         } else {
             throw new Error('Error en la creación de usuario: ' + userFind.message);
         }
     } catch (error) {
-        console.log(error.message);
         throw new Error('Error en la función CreateUser: ' + error.message);
+    }
+}
+
+async function ListAllUsers() {
+    try {
+        let listUser = await Users.findAll({ attributes: { user_id, first_name, last_name, email, country_code, mobile_number, rol_id, active } });
+        console.log(listUser);
+        return listUser;
+    } catch (error) {
+        throw new Error('Error en la función ListAllUsers: ' + error.message);
     }
 }
 
 module.exports = {
     CreateTableUsers,
     SearchUser,
-    CreateUser
+    CreateUser,
+    ListAllUsers
 }

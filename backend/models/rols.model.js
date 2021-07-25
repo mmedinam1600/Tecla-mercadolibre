@@ -1,6 +1,6 @@
 const { sequelize, DataTypes } = require('../db/conexion');
 
-const Rols = sequelize.define('Rols',{
+const Rols = sequelize.define('Rols', {
     rol_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -39,7 +39,7 @@ async function LoadingRoles() {
 }
 
 module.exports = {
+    Rols,
     CreateTable,
     LoadingRoles,
-    Rols
 }

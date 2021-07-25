@@ -32,7 +32,7 @@ app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo 
 app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /trends
 app.use('/user', userRoutes); //Todas las rutas aqui tendran el prefijo /user
 
-const { createModels }  = require('./db/createModels');
+const { createModels } = require('./db/createModels');
 
 //--------------Public------------------\\
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,7 +43,7 @@ async function startServer() {
         await sequelize.authenticate();
         console.log('Conexión EXITOSA.');
 
-        const server = app.listen(process.env.PORT || 3001,() => {
+        const server = app.listen(process.env.PORT || 3001, () => {
             console.log(`Servidor iniciado en http://localhost:${server.address().port}`);
         });
 
@@ -52,7 +52,7 @@ async function startServer() {
         //const { firstUpdateCategoriesFromMercadoLibre } = require("./services/mercado.service");
         //await firstUpdateCategoriesFromMercadoLibre();
     } catch (e) {
-        console.error('ERROR al iniciar el servidor: \n' + e );
+        console.error('ERROR al iniciar el servidor: \n' + e);
         console.log('No se pudo iniciar correctamente\n' + e.message);
     }
 }
