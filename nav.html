@@ -1,88 +1,64 @@
-<!--<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper-->
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><i class="fas fa-tags"></i> Tienda Online</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <!-- Toggle button-->
+        <button class="navbar-toggler hamburger hamburger--collapse" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="hamburger-box"><span class="hamburger-inner"></span></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <!-- Collapsible wrapper-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand--><a class="navbar-brand" href="index.html"><i
+            class="fas fa-tags"></i> Tienda Online</a>
+            <!-- Left links-->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a id="" class="nav-link" href="checkout.html">Formulario de pago</a>
-                </li>
-                <li class="nav-item">
-                    <a id="" class="nav-link" href="product_list.html">Lista de productos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="perfil.html" class="nav-link">
-                        Perfil
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="shopping_car.html" class="nav-link">
-                        <i class="fas fa-shopping-cart"></i> Ver carrito
-                    </a>
-                </li>
-            </ul>
-            <form class="d-flex" method="get" action="search.html">
-                <input class="form-control me-2" type="search" name="q" placeholder="Buscar artículos" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-    </div>
-</nav> -->
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light"><!-- Container wrapper-->
-    <div class="container-fluid"><!-- Toggle button-->
-        <button class="navbar-toggler hamburger hamburger--collapse" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="hamburger-box"><span class="hamburger-inner"></span></span>
-        </button><!-- Collapsible wrapper-->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent"><!-- Navbar brand--><a class="navbar-brand"
-                                                                                                 href="index.html"><i
-            class="fas fa-tags"></i> Tienda Online</a><!-- Left links-->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"><!--li.nav-itema.nav-link(href='login.html') Login-->
+                <!--li.nav-itema.nav-link(href='login.html') Login-->
                 <li class="nav-item"><a class="nav-link" id="pago" href="checkout.html">Formulario de pago</a></li>
                 <li class="nav-item"><a class="nav-link" id="productos" href="product_list.html">Lista de productos</a>
-                </li><!--li.nav-itema.nav-link(href='perfil.html')
-    | Perfil--><!--li.nav-itema.nav-link(href='shopping_car.html')
+                </li>
+                <!--li.nav-itema.nav-link(href='perfil.html')
+    | Perfil-->
+                <!--li.nav-itema.nav-link(href='shopping_car.html')
     i.fas.fa-shopping-cart
-    |  Ver carrito--></ul>
+    |  Ver carrito-->
+            </ul>
             <form class="d-flex me-2" method="get" action="search.html">
-                <div class="input-group w-100"><input class="form-control" type="search" name="q"
-                                                      placeholder="Buscar artículos" aria-label="Search">
+                <div class="input-group w-100"><input class="form-control" type="search" name="q" placeholder="Buscar artículos" aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
-            </form><!-- Left links--></div><!-- Collapsible wrapper--><!-- Right elements-->
-        <div class="d-flex align-items-center"><!-- Carrito--><a class="text-reset me-3 dropdown-toggle hidden-arrow"
-                                                                 id="navbarDropdownMenuLink" href="#" role="button"
-                                                                 data-bs-toggle="dropdown" aria-expanded="false"><i
+            </form>
+            <!-- Left links-->
+        </div>
+        <!-- Collapsible wrapper-->
+        <!-- Right elements-->
+        <div class="d-flex align-items-center">
+            <!-- Carrito--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
             class="fas fa-shopping-cart"></i><span class="badge rounded-pill badge-notification bg-danger">4</span></a>
             <ul class="dropdown-menu dropdown-menu-end p-4 shadow" aria-labelledby="navbarDropdownMenuLink">
-                <li><h4><span class="text-dark">Carrito de compras</span></h4></li>
+                <li>
+                    <h4><span class="text-dark">Carrito de compras</span></h4>
+                </li>
                 <li class="mb-2"><span class="text-muted">No tiene elementos en su carrito de compras :(</span></li>
                 <li><a class="btn btn-danger" href="#">Ir al carrito</a></li>
-            </ul><!-- Notifications--><a class="text-reset me-3 dropdown-toggle hidden-arrow"
-                                         id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown"
-                                         aria-expanded="false"><i class="fas fa-bell"></i><span
+            </ul>
+            <!-- Notifications--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><span
                 class="badge rounded-pill badge-notification bg-danger">1</span></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Some news</a></li>
                 <li><a class="dropdown-item" href="#">Another news</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul><!-- Avatar--><a class="dropdown-toggle d-flex align-items-center hidden-arrow"
-                                  id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown"
-                                  aria-expanded="false"><img class="rounded-circle"
-                                                             src="https://mdbootstrap.com/img/new/avatars/2.jpg"
-                                                             height="25" alt="" loading="lazy"></a>
+            </ul>
+            <!-- Avatar-->
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="rounded-circle" src="https://mdbootstrap.com/img/new/avatars/2.jpg" height="25" alt="" loading="lazy">
+            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Mi perfil</a></li>
                 <li><a class="dropdown-item" href="#">Opciones</a></li>
                 <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
             </ul>
-        </div><!-- Right elements--></div><!-- Container wrapper--></nav>
+        </div>
+        <!-- Right elements-->
+    </div>
+    <!-- Container wrapper-->
+</nav>

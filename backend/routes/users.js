@@ -4,7 +4,7 @@ const router = express.Router();
 const { UserCreate, ListUsers, checkUser } = require('../controllers/users.controller');
 const { generarToken } = require('../services/jwt.service');
 
-const { LevelAdmin } = require('../middleware/midd.users');
+const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
 const { corsOption } = require('../middleware/index');
 const cors = require('cors');
 
@@ -19,7 +19,7 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.get('/', LevelAdmin, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
+router.get('/', UserInSession, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
     try {
         const listUser = await ListUsers();
         res.status(200).json(listUser);
@@ -36,6 +36,16 @@ router.post('/login', cors(corsOption), async(req, res) => {
         res.status(200).json({ token });
     } catch (error) {
         res.status(400).json('Sistema seguro, error en autenticación: ' + error.message);
+    }
+});
+
+router.get('/checkSession', cors(corsOption), UserInSession, async(req, res) => {
+    try {
+        console.log('Entrando a checkSession');
+        let valido = { status: true, message: 'Bienvenido' };
+        res.status(200).json(valido);
+    } catch (error) {
+        res.status(400).json('Usuario no autenticado, redirigir a Login: ' + error.message);
     }
 });
 

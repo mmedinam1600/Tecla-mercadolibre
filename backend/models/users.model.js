@@ -73,6 +73,27 @@ async function CreateTableUsers() {
     await Users.sync();
 }
 
+async function LoadingOneAdmin() {
+    try {
+        await Users.sync(); //Crea la tabla si no existe y si existe no hace nada
+        let userAdmin = await Users.count({ where: { rol_id: 3 } });
+        if (userAdmin == 0) {
+            const administrator = await Users.create({
+                first_name: 'Admin',
+                last_name: 'System',
+                email: 'admin@system.com',
+                rol_id: 3,
+                encrypted_password: await bcrypt.hashSync('password123' + 'admin@system.com', saltRounds)
+            });
+            console.log('Usuario administrador inicial creado de forma correcta: pass:password123, email: admin@system.com');
+        } else {
+            console.log('Ya existen ' + userAdmin + ' usuarios administradores, no es necesario uno extra.');
+        }
+    } catch (error) {
+        console.log('Error en la creación de usuario Administrador Inicial: ' + error);
+    }
+}
+
 async function SearchUser(data) {
     try {
         let userResultado = await Users.findOne({ where: { email: data.email } });
@@ -183,5 +204,6 @@ module.exports = {
     isAdmin,
     DeleteUser,
     UpdateUser,
-    SearchUser
+    SearchUser,
+    LoadingOneAdmin
 }
