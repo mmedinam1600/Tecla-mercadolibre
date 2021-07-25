@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { validateId  } = require('../middleware/index');
 const {  getProductsByIds } = require("../services/product.service");
+const { verifyProduct } = require('../middleware/midd.product');
+const product = require('../controllers/products.controller');
 
 /**
  * Route GET http://localhost:3000/products
@@ -20,19 +22,40 @@ router.get('/', validateId, async (req, res) => {
     }
 });
 
+
 /**
- * Route POST http://localhost:3000/products
- * Description. Agrega nuevos productos
+ * Route GET http://localhost:3000/products/ours
+ * Description. Devuelve todos los productos de nuestra DB
  */
-//AGREGAR NUEVOS PRODUCTOS
-router.post('/', async (req, res) => {
+router.get('/ours', async (req, res) => {
     try {
-        const { id } = req.body;
+        const products = await Product
         res.status(200).json({
             message: "OK"
         });
     } catch (e) {
+    }
+});
 
+/**
+ * Route POST http://localhost:3000/products/ours
+ * Description. Agrega un nuevo producto a la BD
+ */
+//AGREGAR NUEVOS PRODUCTOS
+router.post('/ours', verifyProduct, async (req, res) => {
+    try {
+        const data = req.body;
+        const user_id = 1;
+        const newProduct = await product.addProduct(data, user_id);
+        res.status(200).json({
+            message: "Producto insertado correctamente",
+            product: newProduct
+        });
+    } catch (e) {
+        console.log("Error al agregar el producto :(" + e.message);
+        res.status(400).json({
+            message: e.message
+        });
     }
 });
 

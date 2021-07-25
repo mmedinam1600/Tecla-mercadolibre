@@ -55,12 +55,48 @@ const Products = sequelize.define('Products',{
     createdAt: 'created_at'
 });
 
-async function CreateTable(){
-    await Products.sync(); //Crea la tabla con el modelo asignado si no existe
+class Product {
+    constructor(product) {
+        this.title = product.title;
+        this.thumbnail = product.thumbnail;
+        this.unit_price = product.unit_price;
+        this.condition = product.condition;
+        this.quantity_stock = product.quantity_stock;
+        this.category_id = product.category_id;
+    }
+
+    async getProducts() {
+
+    }
+
+    async getProductById(productId) {
+
+    }
+
+    async editProductById(productoID) {
+
+    }
+
+    async addProduct(user_id) {
+        const createProduct = Products.create({
+            title: this.title,
+            thumbnail: this.thumbnail,
+            unit_price: this.unit_price,
+            condition: this.condition,
+            quantity_stock: this.quantity_stock,
+            category_id: this.category_id,
+            users_id: user_id
+        });
+        return createProduct;
+    }
+
+    async removeProductById(productId) {
+
+    }
+
 }
 
 
-
 module.exports = {
-    CreateTable
+    Product
 }

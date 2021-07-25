@@ -8,7 +8,6 @@ CREATE TABLE RolModel(
     PRIMARY KEY(rol_id),
 );
 
-
 INSERT INTO RolModel(name) VALUES('user'); /* Este rol puede listar sus productos en la tienda, agregar su dirección */
 INSERT INTO RolModel(name) VALUES('moderator'); /* Este rol puede eliminar productos inadecuados de la tienda */
 INSERT INTO RolModel(name) VALUES('administrator'); /* Este rol puede crear categorias y asignar roles */

@@ -6,5 +6,10 @@
   },
   "database": {
     "name": "tecla_mercadolibre"
-  }
+  },
+  "roles": [
+    "user",
+    "seller",
+    "administrator"
+  ]
 }

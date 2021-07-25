@@ -1,4 +1,5 @@
 const { sequelize, DataTypes } = require('../db/conexion');
+const config = require('../config/config.json');
 
 const Rols = sequelize.define('Rols', {
     rol_id: {
@@ -18,10 +19,10 @@ const Rols = sequelize.define('Rols', {
 });
 
 async function CreateTable() {
-    await Rol.sync(); //Crea la tabla con el modelo asignado si no existe
+    await Rols.sync(); //Crea la tabla con el modelo asignado si no existe
 }
 
-async function LoadingRoles() {
+async function LoadingDefautlRoles() {
     try {
         await Rols.sync({ alter: true }); //Verifica el estado de la tabla y luego realiza los cambios para que coincida con el modelo
         let roles = await Rols.count();
@@ -41,5 +42,5 @@ async function LoadingRoles() {
 module.exports = {
     Rols,
     CreateTable,
-    LoadingRoles,
+    LoadingRoles: LoadingDefautlRoles,
 }
