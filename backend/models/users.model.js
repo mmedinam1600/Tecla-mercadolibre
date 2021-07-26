@@ -60,14 +60,33 @@ Users.init({
     createdAt: 'created_at'
 });
 
-async function CreateDefaultUsers(){
+/*
+async function CreateDefaultUsers() {
     try {
         //await Users.sync({ alter: true }); //Cuando hay valores default MSSQL no soporta el ALTER TABLE y modifcarle el DEFAULT
         let users = await Users.count();
         if (users == 0) {
-            const admin = await Users.create({ first_name: "Administrador", last_name: "", email: "admin@mail.com", encrypted_password: await bcrypt.hashSync("123456" + "admin@mail.com", saltRounds), "rol_id": 3});
-            const user = await Users.create({ first_name: "Jose", last_name: "Praxedes", email: "jose@mail.com", encrypted_password: await bcrypt.hashSync("jaiba" + "jose@mail.com", saltRounds), "rol_id": 1});
-            const seller = await Users.create({ first_name: "Jose", last_name: "Ortiz", email: "pepe@mail.com", encrypted_password: await bcrypt.hashSync("pepe123" + "pepe@mail.com", saltRounds), "rol_id": 2});
+            const admin = await Users.create({
+                first_name: "Administrador",
+                last_name: "",
+                email: "admin@mail.com",
+                encrypted_password: await bcrypt.hashSync("123456" + "admin@mail.com", saltRounds),
+                "rol_id": 3
+            });
+            const user = await Users.create({
+                first_name: "Jose",
+                last_name: "Praxedes",
+                email: "jose@mail.com",
+                encrypted_password: await bcrypt.hashSync("jaiba" + "jose@mail.com", saltRounds),
+                "rol_id": 1
+            });
+            const seller = await Users.create({
+                first_name: "Jose",
+                last_name: "Ortiz",
+                email: "pepe@mail.com",
+                encrypted_password: await bcrypt.hashSync("pepe123" + "pepe@mail.com", saltRounds),
+                "rol_id": 2
+            });
             console.log('Usuarios creados satisfactoriamente.');
         } else {
             console.log('Usuarios existentes: ' + users);
@@ -76,28 +95,83 @@ async function CreateDefaultUsers(){
         console.log('Error en la creacion de usuarios default ' + error);
     }
 }
+ */
+
+class User {
+    constructor(data) {
+        this.first_name = data.first_name,
+            this.last_name = data.last_name,
+            this.email = data.email,
+            this.password = data.password
+    }
+}
 
 async function CreateTableUsers() {
     await Users.sync();
 }
 
-async function SearchUser(user) {
+async function LoadingOneAdmin() {
     try {
-        let user_status = await Users.findOne({ where: { email: user.email } });
-        //console.log(user_status);
-        if (user_status == null) {
-            return ({ message: 'Correo electrónico válido', status: true });
+        await Users.sync(); //Crea la tabla si no existe y si existe no hace nada
+        let userAdmin = await Users.count({ where: { rol_id: 3 } });
+        if (userAdmin == 0) {
+            const administrator = await Users.create({
+                first_name: 'Admin',
+                last_name: 'System',
+                email: 'admin@system.com',
+                rol_id: 3,
+                encrypted_password: await bcrypt.hashSync('password123' + 'admin@system.com', saltRounds)
+            });
+            console.log('Usuario administrador inicial creado de forma correcta: pass:password123, email: admin@system.com');
         } else {
-            return ({ message: 'Correo electrónico en existencia', status: false });;
+            console.log('Ya existen ' + userAdmin + ' usuarios administradores, no es necesario uno extra.');
+        }
+    } catch (error) {
+        console.log('Error en la creación de usuario Administrador Inicial: ' + error);
+    }
+}
+
+async function SearchUser(data) {
+    try {
+        let userResultado = await Users.findOne({ where: { email: data.email } });
+        if (userResultado) {
+            let user = {
+                user_id: userResultado.dataValues.user_id,
+                first_name: userResultado.dataValues.first_name,
+                last_name: userResultado.dataValues.last_name,
+                email: userResultado.dataValues.email,
+                password: userResultado.dataValues.encrypted_password,
+                country_code: userResultado.dataValues.country_code,
+                mobile_number: userResultado.dataValues.mobile_number,
+                rol_id: userResultado.dataValues.rol_id,
+                active: userResultado.dataValues.active,
+            }
+            return user;
+        } else {
+            throw new Error('El usuario no existe');
         }
     } catch (error) {
         throw new Error('Error en la función SearchUser: ' + error.message);
     }
 }
 
+async function ValidateUser(user) {
+    try {
+        let user_status = await Users.findOne({ where: { email: user.email } });
+        //console.log(user_status);
+        if (user_status == null) {
+            return ({ message: 'Correo electrónico válido', status: true });
+        } else {
+            return ({ message: 'Correo electrónico en existencia', status: false });
+        }
+    } catch (error) {
+        throw new Error('Error en la función ValidateUser: ' + error.message);
+    }
+}
+
 async function CreateUser(user) {
     try {
-        let userFind = await SearchUser(user);
+        let userFind = await ValidateUser(user);
         if (userFind.status) {
             //Creación de usuario
             //Se une la pass con el email para una longitud más larga de caracteres y hacerla unica con ayuda del email
@@ -118,18 +192,55 @@ async function CreateUser(user) {
 
 async function ListAllUsers() {
     try {
-        let listUser = await Users.findAll({ attributes: { user_id, first_name, last_name, email, country_code, mobile_number, rol_id, active } });
-        console.log(listUser);
+        let listUser = await Users.findAll();
         return listUser;
     } catch (error) {
         throw new Error('Error en la función ListAllUsers: ' + error.message);
     }
 }
 
+async function UpdateUser(data) {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
+async function DeleteUser(data) {
+    try {
+        let user_status = await Users.findOne({ where: { email: user.email } });
+        user_status.active = 0;
+        await user_status.save();
+        return user_status;
+    } catch (error) {
+        throw new Error('Error en la función DeleteUser: ' + error.message);
+    }
+}
+
+async function isAdmin(data) {
+    try {
+        let user_status = await Users.findOne({ where: { email: data } });
+        console.log(user_status.rol_id);
+        if (user_status.rol_id == 3) {
+            return ({ message: 'Usuario administrador', status: true });
+        } else {
+            return ({ message: 'Nivel de usuario no válido', status: false });;
+        }
+    } catch (error) {
+        throw new Error('Error en la función isAdmin: ' + error.message);
+    }
+}
+
 module.exports = {
+    User,
     CreateTableUsers,
-    SearchUser,
+    ValidateUser,
     CreateUser,
     ListAllUsers,
-    CreateDefaultUsers
+    isAdmin,
+    DeleteUser,
+    UpdateUser,
+    SearchUser,
+    LoadingOneAdmin
 }

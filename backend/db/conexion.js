@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 require('dotenv').config();
 const config = require('../config/config.json');
 
@@ -24,5 +24,6 @@ const sequelize = new Sequelize(config.database.name, null, null, {
 module.exports = {
     sequelize,
     DataTypes,
-    Model
+    Model,
+    Op
 }

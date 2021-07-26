@@ -1,7 +1,6 @@
+const {sequelize, DataTypes, Op} = require('../db/conexion');
 
-const { sequelize, DataTypes } = require('../db/conexion');
-
-const Products = sequelize.define('Products',{
+const Products = sequelize.define('Products', {
     product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -65,18 +64,6 @@ class Product {
         this.category_id = product.category_id;
     }
 
-    async getProducts() {
-
-    }
-
-    async getProductById(productId) {
-
-    }
-
-    async editProductById(productoID) {
-
-    }
-
     async addProduct(user_id) {
         const createProduct = Products.create({
             title: this.title,
@@ -90,13 +77,128 @@ class Product {
         return createProduct;
     }
 
-    async removeProductById(productId) {
-
+    async editProduct(user_id, product_id) {
+        console.log(user_id, product_id)
+        const updateProduct = await Products.update({
+            title: this.title,
+            thumbnail: this.thumbnail,
+            unit_price: this.unit_price,
+            condition: this.condition,
+            quantity_stock: this.quantity_stock,
+            category_id: this.category_id,
+            users_id: user_id
+        }, {
+            where: {
+                product_id: product_id,
+            }
+        });
+        return updateProduct;
     }
+}
 
+async function findAll(limit, offset ,category, query) {
+    try{
+        let options = {
+            offset,
+            limit,
+        };
+        if (category && query) {
+            options['where'] = {
+                title: {
+                    [Op.substring]: `${query}`,
+                },
+                category_id: category,
+                active: 1
+            }
+        } else if (category) {
+            options['where'] = {
+                category_id: category,
+                active: 1
+            }
+        } else if (query) {
+            options['where'] = {
+                title: {
+                    [Op.substring]: `${query}`
+                },
+                active: 1
+            }
+        } else {
+            options['where'] = {
+                active: 1
+            }
+        }
+        const products = await Products.findAll(options);
+        const results = await Products.count(options);
+        return {
+            results,
+            products
+        };
+    } catch (e) {
+        throw new Error("Error al obtener ejecutar la funcion FindAll: " + e.message);
+    }
+}
+
+async function findBySeller(id, limit, offset) {
+    try {
+        const options = {
+            offset,
+            limit,
+            where: {
+                users_id: id,
+                active: 1
+            }
+        }
+        const products = await Products.findAll(options);
+        const results = await Products.count(options);
+        return {
+            results,
+            products
+        };
+    } catch (e) {
+        throw new Error("Error al encontrar el producto por el vendedor: " + e.message);
+    }
+}
+
+async function findByIds(ids) {
+    try {
+        const arrayID = ids.split(',');
+        const options = {
+            where: {
+                product_id: arrayID,
+                active: 1
+            }
+        }
+        const products = await Products.findAll(options);
+        const results = await Products.count(options);
+        return {
+            results,
+            products
+        };
+    } catch (e) {
+        throw new Error("Error al buscar productos por su ID");
+    }
+}
+
+async function removeProductById(productId) {
+    try {
+        return await Products.update({
+            active: 0
+        }, {
+            where: {
+                product_id: productId
+            }
+        });
+    } catch (e) {
+        console.log("ERROR al hacer la consulta removeProductById: " + e.message);
+        throw new Error("ERROR al hacer la consulta removeProductById: " + e.message)
+    }
 }
 
 
 module.exports = {
-    Product
+    Product,
+    findAll,
+    findBySeller,
+    findByIds,
+    removeProductById
 }
