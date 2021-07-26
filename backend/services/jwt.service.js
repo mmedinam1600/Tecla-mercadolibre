@@ -27,4 +27,5 @@ const descubrirToken = async(token) => {
 module.exports = {
     generarToken,
     descubrirToken,
+    jwt,
 };

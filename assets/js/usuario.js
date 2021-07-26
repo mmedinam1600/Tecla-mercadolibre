@@ -59,8 +59,51 @@ class Usuario {
 
 }
 
-/* Ejemplo de uso */
-//let user = new Usuario("Marco", "Polo", "micky@hotmail.com", "patito");
-//user.getUser(); //Revisamos los datos del usuario
-//user.editUser({nombre: 'Marco Antonio', apellido: 'Flores'}); //Editamos algunos campos
-//user.getUser() //Verificamos que se editen los nuevos cambios
+async function CreateUser(first_name, last_name, email, password) {
+    let usuario = new Usuario(first_name, last_name, email, password);
+    //console.log(usuario)
+    const apiCall = await fetch("http://localhost:3000/user/register", {
+        method: 'post',
+        //Se utiliza application/x-www-form-urlencoded para autorizar envíos CORS
+        headers: {
+            "Accept": "*/*",
+            "Content-type": 'application/x-www-form-urlencoded',
+        },
+        //Los datos se envían como cadena en forma de asignacion foo=bar&foo2=bar2 al usar application/x-www-form-urlencoded
+        body: `json=${JSON.stringify(usuario)}`,
+    });
+    const response = await apiCall.json();
+
+    //console.log(response)
+
+    if (response.user != undefined) {
+        document.getElementById('CreateForm').reset();
+        document.getElementById('email').removeAttribute('style');
+        return '<h5 class="p-4" style="color:green;">' + response.user + ' <a href="login.html">iniciar sesión<a> </h5>';
+    } else {
+        document.getElementById('email').setAttribute("style", "border-color:red !important; background-image:none !important");
+        return '<p style="color:red">' + response.message + '</p>';
+    }
+}
+
+async function SubmitUser(event) {
+    event.preventDefault();
+    //console.log('Formulario de registro activado')
+    const first_name = document.getElementById('firstName').value;
+    const last_name = document.getElementById('lastName').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirm_password = document.getElementById('password-confirm').value;
+
+    //console.log(confirm_password != password);
+    if (confirm_password != password) {
+        document.getElementById('password').setAttribute("style", "border-color:red !important; background-image:none !important");
+        document.getElementById('password-confirm').setAttribute("style", "border-color:red !important; background-image:none !important");
+    } else {
+        document.getElementById('password').removeAttribute('style');
+        document.getElementById('password-confirm').removeAttribute('style');
+
+        const userMessage = await CreateUser(first_name, last_name, email, password);
+        document.getElementById('messagesInicio').innerHTML = '<div class="text-center">' + userMessage + '</div>';
+    }
+}

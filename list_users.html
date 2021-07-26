@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios en el sistema</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/all.css">
+
+</head>
+
+<body>
+    <header>
+        <nav id="nav"></nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="title-box" style="padding: 3rem 1.5rem 2rem;">
+                <h1>Gestión de Usuarios</h1>
+                <p class="lead">Página que permite a los usuarios administradores gestionar a los usuarios registrados dentro del sistema.</p>
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewUser">
+                <b>+</b> Añadir Usuario
+            </button>
+            <br><br>
+            <!-- Modal -->
+            <div class="modal fade" id="modalNewUser" tabindex="-1" aria-labelledby="modalNewUserLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalNewUserLabel">Crear usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="CreateForm" onsubmit="return SubmitUser(event)" class="needs-validation" novalidate>
+                            <div class="modal-body">
+                                <div id="messagesInicio"></div>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <label for="firstName" class="form-label">Nombre(s)</label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa tu Nombre(s) para continuar.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="lastName" class="form-label">Apellidos</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa tus Apellidos para continuar.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Correo electrónico</label>
+                                        <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa tu dirección de correo electrónico para continuar.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="password" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="password" pattern=".{8,}" required>
+                                        <div class="invalid-feedback">
+                                            La contraseña debe tener mínimo 8 caracteres
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="password-confirm" class="form-label">Confirmar contraseña</label>
+                                        <input type="password" class="form-control" id="password-confirm" pattern=".{8,}" required>
+                                        <div class="invalid-feedback">
+                                            La contraseña debe tener mínimo 8 caracteres
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Crear usuario</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered grocery-crud-table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre(s)</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Estatus</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Marqués de Riscal
+                        </td>
+                        <td>
+                            La Rioja </td>
+                        <td>
+                            945010203 </td>
+                        <td>
+                            test@mail.com </td>
+                        <td>
+                            <a class="btn btn-default btn-outline-dark" href="">Entrar</a>
+                            <a class="btn btn-default btn-outline-dark" href="">Borrar</a> </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FOOTER -->
+        <footer id="footerGeneral" class="container pt-4">
+        </footer>
+    </main>
+
+    <script src="./assets//js/usuario.js"></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/dist/js/form-validation.js"></script>
+    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/menu.js"></script>
+    <script src="./assets/js/footer.js"></script>
+    <script src="./assets/js/storage.js"></script>
+</body>
+
+</html>

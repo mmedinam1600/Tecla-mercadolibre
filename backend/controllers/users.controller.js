@@ -23,8 +23,9 @@ const ListUsers = async() => {
 const isAdminStatus = async(data) => {
     try {
         const levelUser = await isAdmin(data);
+        return levelUser;
     } catch (error) {
-
+        throw new Error(error);
     }
 }
 

@@ -31,54 +31,57 @@
 
     <div class="container">
         <main>
+
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="./assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
                 <h2>Registro de usuarios</h2>
-                <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+                <p class="lead">¡Inicia sesión para realizar compras y recibir recompensas!</p>
             </div>
+
+            <div id="messagesInicio"></div>
 
             <div class="row g-3">
                 <div class="col-md-12 col-lg-12">
                     <h4 class="mb-3">Datos de usuario</h4>
-                    <form class="needs-validation" novalidate>
+                    <form id="CreateForm" onsubmit="return SubmitUser(event)" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="firstName" class="form-label">First name</label>
+                                <label for="firstName" class="form-label">Nombre(s)</label>
                                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    Valid first name is required.
+                                    Ingresa tu Nombre(s) para continuar.
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="lastName" class="form-label">Last name</label>
+                                <label for="lastName" class="form-label">Apellidos</label>
                                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    Valid last name is required.
+                                    Ingresa tus Apellidos para continuar.
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <label for="email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
                                 <div class="invalid-feedback">
-                                    Please enter a valid email address for shipping updates.
+                                    Ingresa tu dirección de correo electrónico para continuar.
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="password" class="form-label">Contraseña <span class="text-muted"></span></label>
-                                <input type="password" class="form-control" id="password">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" pattern=".{8,}" required>
                                 <div class="invalid-feedback">
-                                    La contraseña no corresponde
+                                    La contraseña debe tener mínimo 8 caracteres
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <label for="password-confirm" class="form-label">Confirmar contraseña <span class="text-muted"></span></label>
-                                <input type="password-confirm" class="form-control" id="password-confirm">
+                                <label for="password-confirm" class="form-label">Confirmar contraseña</label>
+                                <input type="password" class="form-control" id="password-confirm" pattern=".{8,}" required>
                                 <div class="invalid-feedback">
-                                    La contraseña no corresponde
+                                    La contraseña debe tener mínimo 8 caracteres
                                 </div>
                             </div>
 
@@ -90,6 +93,7 @@
                     </form>
                 </div>
             </div>
+
         </main>
 
         <!-- FOOTER -->
@@ -97,8 +101,8 @@
         </footer>
     </div>
 
-
-
+    <script src="./assets//js/usuario.js"></script>
+    <script src="./assets/js/login.js"></script>
     <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/menu.js"></script>
     <script src="./assets/dist/js/form-validation.js"></script>

@@ -2,24 +2,28 @@ const express = require('express');
 const router = express.Router();
 
 const { UserCreate, ListUsers, checkUser } = require('../controllers/users.controller');
-const { generarToken } = require('../services/jwt.service');
+const { generarToken, jwt } = require('../services/jwt.service');
 
 const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
 const { corsOption } = require('../middleware/index');
 const cors = require('cors');
 
-router.post('/', async(req, res) => {
+
+router.post('/register', async(req, res) => {
     try {
-        let user = { email: req.body.email, first_name: req.body.first_name, last_name: req.body.last_name, password: req.body.password };
+        let userBody = JSON.parse(req.body.json);
+        //console.log(userBody)
+        let user = { email: userBody.email, first_name: userBody.nombre, last_name: userBody.apellido, password: userBody.password };
         const createResult = await UserCreate(user);
-        console.log(createResult);
-        res.status(200).json(createResult);
+        //console.log('Dentro de register');
+        //console.log(createResult);
+        res.status(200).json({ user: 'Usuario creado ' + createResult.dataValues.email });
     } catch (error) {
-        res.status(409).json('Error al crear un usuario: ' + error.message); //409 Conflict
+        res.status(409).json({ message: 'Error al crear un usuario: ' + error.message }); //409 Conflict
     }
 });
 
-router.get('/', UserInSession, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
+router.get('/list-users', UserInSession, LevelAdmin, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
     try {
         const listUser = await ListUsers();
         res.status(200).json(listUser);
@@ -41,8 +45,10 @@ router.post('/login', cors(corsOption), async(req, res) => {
 
 router.get('/checkSession', cors(corsOption), UserInSession, async(req, res) => {
     try {
-        console.log('Entrando a checkSession');
-        let valido = { status: true, message: 'Bienvenido' };
+        //console.log('Entrando a checkSession');
+        let token = jwt.decode(req.headers.authorization.split(' ')[1]);
+        //console.log(token.data.rol_id)
+        let valido = { status: true, message: 'Bienvenido', type: token.data.rol_id };
         res.status(200).json(valido);
     } catch (error) {
         res.status(400).json('Usuario no autenticado, redirigir a Login: ' + error.message);

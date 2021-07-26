@@ -167,36 +167,3 @@ try {
 } catch (error) {
     console.error("Error durante la carga inicial");
 }
-
-function readCookie(name) {
-    var nameCookie = name + "=";
-    var arrCookie = document.cookie.split(';');
-    for (var i = 0; i < arrCookie.length; i++) {
-        var c = arrCookie[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameCookie) == 0) {
-            return decodeURIComponent(c.substring(nameCookie.length, c.length));
-        }
-    }
-    return null;
-}
-
-function createCookie(dataElement, cantidad) {
-    console.log("dataElement: ");
-    console.log(dataElement);
-    let productoID = dataElement; //Obtiene una colecciónHTML y accedemos al elemento 1 console.log(dataElement);
-    let contadorSum = parseInt(readCookie("contador"), 10) + 1;
-    console.log(productoID);
-    document.cookie = "contador=" + contadorSum
-    document.cookie = "idProducto_" + contadorSum + "=" + productoID + "; max-age=3600; path=/";
-    document.cookie = "cantidad_" + contadorSum + "=" + cantidad + "; max-age=3600; path=/";
-    alert('Producto añadido');
-}
-
-function createCookieCero() {
-    document.cookie = "contador=0; max-age=86400; path=/"; //Crear cookie contador
-}
-
-//console.log(document.cookie);
-createCookieCero();
-//console.log(document.cookie);

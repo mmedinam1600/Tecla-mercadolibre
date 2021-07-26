@@ -34,7 +34,7 @@ async function login(email, password) {
 
 const ConfirmLogin = async() => {
     const token = await Login.recuperarUsuario();
-    console.log(token);
+    //console.log('Token almacenado: ' + token);
     const apiCall = await fetch("http://localhost:3000/user/checkSession", {
         method: 'get',
         headers: {
@@ -53,7 +53,7 @@ async function validateForm(event) {
     const pass = document.getElementById('inputPassword').value;
     Login.guardarUsuario(new Login(email, pass));
     const resultado = await login(email, pass);
-    //console.log('resultado->', resultado);
+    console.log('Token generado en el login: ', resultado);
     Login.guardarUsuario(resultado);
     if (resultado) {
         location.href = "index.html";
@@ -62,6 +62,7 @@ async function validateForm(event) {
 
 async function load() {
     //Durante el tiempo que el JWT este activo login redireccionará a index.
+    console.log('Entrando durante ONLOAD');
     let status_session = await ConfirmLogin();
     if (status_session.status != undefined) {
         location.href = "index.html";

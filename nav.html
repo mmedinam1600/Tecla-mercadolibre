@@ -12,8 +12,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!--li.nav-itema.nav-link(href='login.html') Login-->
                 <li class="nav-item"><a class="nav-link" id="pago" href="checkout.html">Formulario de pago</a></li>
-                <li class="nav-item"><a class="nav-link" id="productos" href="product_list.html">Lista de productos</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" id="productos" href="product_list.html">Lista de productos</a></li>
+                <li id="ListUsers" class="nav-item"></li>
                 <!--li.nav-itema.nav-link(href='perfil.html')
     | Perfil-->
                 <!--li.nav-itema.nav-link(href='shopping_car.html')
@@ -39,7 +39,7 @@
                     <h4><span class="text-dark">Carrito de compras</span></h4>
                 </li>
                 <li class="mb-2"><span class="text-muted">No tiene elementos en su carrito de compras :(</span></li>
-                <li><a class="btn btn-danger" href="#">Ir al carrito</a></li>
+                <li><a class="btn btn-danger" href='shopping_car.html'>Ir al carrito</a></li>
             </ul>
             <!-- Notifications--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><span
                 class="badge rounded-pill badge-notification bg-danger">1</span></a>
@@ -50,12 +50,12 @@
             </ul>
             <!-- Avatar-->
             <a class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img class="rounded-circle" src="https://mdbootstrap.com/img/new/avatars/2.jpg" height="25" alt="" loading="lazy">
+                <img id="imgProfile" class="rounded-circle" src="./assets/brand/noAuthentication.jpg" height="25" alt="" loading="lazy">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                <li><a class="dropdown-item" href="#">Opciones</a></li>
-                <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                <li><a class="dropdown-item" href="perfil.html">Mi perfil</a></li>
+                <!--<li><a class="dropdown-item" href="#">Opciones</a></li>-->
+                <li><a class="dropdown-item" href="javascript:CerrarSession()">Cerrar Sesión</a></li>
             </ul>
         </div>
         <!-- Right elements-->
