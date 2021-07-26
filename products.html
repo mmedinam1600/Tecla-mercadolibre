@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos en el sistema</title>
 
+    <link rel="stylesheet" href="./assets/dist/css/hamburgers.css">
+
     <!-- Bootstrap core CSS -->
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -131,11 +133,98 @@
         </table>
     </div>
 
+    <!-- Modal EDIT -->
+    <div class="modal fade" id="modalEditProduct" tabindex="-1" aria-labelledby="modalEditProductLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditProductLabel">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="EditForm" onsubmit="return SubmitEditProduct(event)" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <div id="messagesInicioProducts"></div>
+                        <div class="row g-3">
+                            <div class="col-sm-12">
+                                <label for="title_edit" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="title_edit" placeholder="" value=""
+                                       required>
+                                <input type="number" class="form-control" id="product_id_edit" hidden="">
+                                <div class="invalid-feedback">
+                                    Ingresa el título del producto para continuar.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <label for="thumbnail_edit" class="form-label">Miniatura</label>
+                                <input type="text" class="form-control" id="thumbnail_edit"
+                                       placeholder="Link de la miniatura" value=""
+                                       required>
+                                <div class="invalid-feedback">
+                                    Ingresa el link de la miniatura para continuar.
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="unit_price_edit" class="form-label">Precio por unidad</label>
+                                <input type="number" class="form-control" id="unit_price_edit" placeholder=""
+                                       required>
+                                <div class="invalid-feedback">
+                                    Ingresa un precio para continuar.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="condition_edit" class="form-label">Condicion</label>
+                                <select class="form-select" required id="condition_edit"
+                                        aria-label="Default select example">
+                                    <option selected disabled value="">Selecciona condicion</option>
+                                    <option value="Nuevo">nuevo</option>
+                                    <option value="Usado">usado</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debes seleccionar la condicion del producto
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="quantity_stock_edit" class="form-label">Stock disponible</label>
+                                <input type="number" class="form-control" id="quantity_stock_edit" required>
+                                <div class="invalid-feedback">
+                                    El stock debe contener un número
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="category_id_edit" class="form-label">Categoría</label>
+                                <select class="form-select" id="category_id_edit" required>
+                                    <option selected disabled value="">Selecciona la categoría</option>
+                                    <option value="1">Categoria 1</option>
+                                    <option value="2">Categoria 2</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debes seleccionar una categoría
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Editar producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer id="footerGeneral" class="container pt-4">
     </footer>
 </main>
 
+<script src="./assets/js/config.js"></script>
+<script src="./assets/js/login.js"></script>
 <script src="./assets/js/product.js"></script>
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/dist/js/form-validation.js"></script>

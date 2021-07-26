@@ -42,7 +42,6 @@ async function renderCarousel(data, divToWrite) {
                         </div>
                     </form>
             `;
-
             carouselItem.appendChild(option);
             option.appendChild(option_col);
             option.appendChild(option_col_2);
@@ -117,9 +116,7 @@ async function renderCardsProducts(data) {
                 cardBody.appendChild(cardHead);
                 cardBody.appendChild(priceProduct);
                 cardBody.appendChild(buttonCard);
-
             }
-
         }
     } else {
         console.error("El objeto no es el adecuado");
@@ -167,3 +164,4 @@ try {
 } catch (error) {
     console.error("Error durante la carga inicial");
 }
+

@@ -56,7 +56,6 @@ class Usuario {
             "domicilio": this.domicilio
         }
     };
-
 }
 
 async function CreateUser(first_name, last_name, email, password) {

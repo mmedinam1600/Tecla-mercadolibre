@@ -62,7 +62,9 @@ async function loadList() {
             rol = 'usuario';
         }
 
+        console.log(element);
         let userString = escape(JSON.stringify(element));
+        console.log(userString);
 
         htmlUsers += '<tr>' +
             '<td>' + element.first_name + '</td>' +

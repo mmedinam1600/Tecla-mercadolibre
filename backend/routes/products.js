@@ -4,6 +4,7 @@ const router = express.Router();
 const { validateId  } = require('../middleware/index');
 const {  getProductsByIds } = require("../services/product.service");
 const { verifyProduct } = require('../middleware/midd.product');
+const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
 const product = require('../controllers/products.controller');
 
 /**
@@ -28,7 +29,7 @@ router.get('/', validateId, async (req, res) => {
  * Params. limit[number] | category[number] | query[string] seller_id[number] | product_id[number]
  * Description. Devuelve todos los productos de nuestra DB
  */
-router.get('/ours', async (req, res) => {
+router.get('/ours', LevelAdmin, UserInSession, async (req, res) => {
     try {
         const params = req.query;
         const products = await product.getProducts(params);
@@ -66,9 +67,10 @@ router.post('/ours', verifyProduct, async (req, res) => {
  * Route PUT http://localhost:3000/products/ours
  * Description. Modifica un producto de la BD
  */
-router.put('/ours', verifyProduct, async (req, res) => {
+router.put('/ours/:id', verifyProduct, async (req, res) => {
     try {
         const data = req.body;
+        data['product_id'] = req.params.id;
         const user_id = 1; //Ahorita todos los productos se agregaran con el usuario 1.
         const newProduct = await product.editProduct(data, user_id);
         res.status(200).json({
@@ -88,7 +90,7 @@ router.put('/ours', verifyProduct, async (req, res) => {
  * Params. limit[number] | category[number] | query[string] seller_id[number] | product_id[number]
  * Description. Devuelve todos los productos de nuestra DB
  */
-router.delete('/ours/:id', async (req, res) => {
+router.delete('/ours/:id', LevelAdmin, UserInSession, async (req, res) => {
     try {
         const id = req.params.id;
         const products = await product.removeProduct(id);
