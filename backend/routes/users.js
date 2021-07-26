@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { UserCreate, ListUsers, checkUser } = require('../controllers/users.controller');
+const { UserCreate, ListUsers, checkUser, deleteUser, Userupdate } = require('../controllers/users.controller');
 const { generarToken, jwt } = require('../services/jwt.service');
 
 const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
@@ -23,10 +23,22 @@ router.post('/register', async(req, res) => {
     }
 });
 
-router.get('/list-users', UserInSession, LevelAdmin, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
+router.get('/list-users', cors(corsOption), LevelAdmin, UserInSession, async(req, res) => { //Revisar que inicio sesion y revisar que es admin
     try {
         const listUser = await ListUsers();
-        res.status(200).json(listUser);
+        const UserList = [];
+        for (let index = 0; index < listUser.length; index++) {
+            const element = listUser[index];
+            UserList.push({
+                user_id: element.dataValues.user_id,
+                first_name: element.dataValues.first_name,
+                last_name: element.dataValues.last_name,
+                email: element.dataValues.email,
+                rol_id: element.dataValues.rol_id,
+                active: element.dataValues.active,
+            });
+        }
+        res.status(200).json(UserList);
     } catch (error) {
         res.status(412).json('Error al listar todos los usuarios: ' + error.message); //412 Precondition Failed  
     }
@@ -52,6 +64,34 @@ router.get('/checkSession', cors(corsOption), UserInSession, async(req, res) => 
         res.status(200).json(valido);
     } catch (error) {
         res.status(400).json('Usuario no autenticado, redirigir a Login: ' + error.message);
+    }
+});
+
+router.post('/delete/:id', cors(corsOption), LevelAdmin, UserInSession, async(req, res) => {
+    try {
+        let user = req.params.id;
+        const result = await deleteUser(user);
+        if (result[0]) {
+            res.status(200).json({ status: 'Usuario eliminado' });
+        }
+    } catch (error) {
+        res.status(412).json('Error al listar todos los usuarios: ' + error.message); //412 Precondition Failed  
+    }
+});
+
+router.post('/editUser/:id', cors(corsOption), LevelAdmin, UserInSession, async(req, res) => {
+    try {
+        console.log(JSON.parse(req.body.json));
+        let user = req.params.id;
+        let toChange = JSON.parse(req.body.json);
+        console.log(user);
+        const result = await Userupdate(user, toChange);
+        console.log(result);
+        if (result[0]) {
+            res.status(200).json({ status: 'Usuario actualizado' });
+        }
+    } catch (error) {
+        res.status(412).json('Error al listar todos los usuarios: ' + error.message); //412 Precondition Failed  
     }
 });
 

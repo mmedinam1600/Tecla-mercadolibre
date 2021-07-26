@@ -1,5 +1,5 @@
-let host = 'http://localhost';
-let port = 3000;
+//let host = 'http://localhost';
+//let port = 3000;
 
 async function renderCarousel(data, divToWrite) {
     if (data) {

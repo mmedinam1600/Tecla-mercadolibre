@@ -5,15 +5,16 @@ const LevelAdmin = async(req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
         let verificado = await descubrirToken(token);
-        console.log(verificado.data.email);
+        //console.log('Dentro de Middleware LevelAdmin');
+        //console.log(verificado.data.email);
         const email = await verificado.data.email;
+        //console.log('email despues de data email');
+        //console.log(email);
         const result = await isAdminStatus(email);
-        if (result) {
-            return res.status(200).json({ isadmin: true, email: result });
-        }
+        //console.log(result)
         next();
-    } catch (e) {
-        throw new Error('Ocurrio un error al buscar función LevelAdmin: ' + e.message);
+    } catch (error) {
+        res.status(403).json({ error: 'Ocurrio un error en la función LevelAdmin' + error.message }) //403 Forbidden El usuario no tiene acceso a ese contenido
     }
 }
 

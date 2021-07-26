@@ -1,5 +1,5 @@
-let host = 'http://localhost';
-let port = 3000;
+//let host = 'http://localhost';
+//let port = 3000;
 
 const categorias = document.getElementById('categorias');
 const items = document.getElementById('categoria');

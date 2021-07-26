@@ -18,7 +18,7 @@ class Login {
 async function login(email, password) {
     let usuario = { email: email, password: password };
     console.log(usuario)
-    const apiCall = await fetch("http://localhost:3000/user/login", {
+    const apiCall = await fetch(`${host}:${port}/user/login`, {
         method: 'post',
         //Se utiliza application/x-www-form-urlencoded para autorizar envíos CORS
         headers: {
@@ -35,7 +35,7 @@ async function login(email, password) {
 const ConfirmLogin = async() => {
     const token = await Login.recuperarUsuario();
     //console.log('Token almacenado: ' + token);
-    const apiCall = await fetch("http://localhost:3000/user/checkSession", {
+    const apiCall = await fetch(`${host}:${port}/user/checkSession`, {
         method: 'get',
         headers: {
             "Accept": "*/*",

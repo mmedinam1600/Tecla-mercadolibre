@@ -192,26 +192,42 @@ async function CreateUser(user) {
 
 async function ListAllUsers() {
     try {
-        let listUser = await Users.findAll();
+        let listUser = await Users.findAll({ where: { active: 1 } });
         return listUser;
     } catch (error) {
         throw new Error('Error en la función ListAllUsers: ' + error.message);
     }
 }
 
-async function UpdateUser(data) {
+async function UpdateUser(data, change) {
     try {
-
+        let user_status = await Users.update({
+            first_name: change.first_name,
+            last_name: change.last_name,
+            rol_id: change.rol,
+        }, {
+            where: {
+                user_id: data
+            }
+        });
+        return user_status;
     } catch (error) {
-
+        throw new Error('Error en la función UpdateUser: ' + error.message);
     }
 }
 
 async function DeleteUser(data) {
     try {
-        let user_status = await Users.findOne({ where: { email: user.email } });
-        user_status.active = 0;
-        await user_status.save();
+        //console.log('dentro de DeleteUser modelo');
+        //console.log(data);
+        let user_status = await Users.update({
+            active: 0,
+            email: ''
+        }, {
+            where: {
+                user_id: data
+            }
+        });
         return user_status;
     } catch (error) {
         throw new Error('Error en la función DeleteUser: ' + error.message);
@@ -220,12 +236,14 @@ async function DeleteUser(data) {
 
 async function isAdmin(data) {
     try {
+        //console.log('dentro de funcion is Admin');
+        //console.log(data);
         let user_status = await Users.findOne({ where: { email: data } });
-        console.log(user_status.rol_id);
+        //console.log(user_status.rol_id);
         if (user_status.rol_id == 3) {
             return ({ message: 'Usuario administrador', status: true });
         } else {
-            return ({ message: 'Nivel de usuario no válido', status: false });;
+            throw new Error('Nivel de usuario no válido');
         }
     } catch (error) {
         throw new Error('Error en la función isAdmin: ' + error.message);

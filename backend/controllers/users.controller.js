@@ -22,6 +22,8 @@ const ListUsers = async() => {
 
 const isAdminStatus = async(data) => {
     try {
+        //console.log('dentro de funcion is Admin Status');
+        //console.log(data);
         const levelUser = await isAdmin(data);
         return levelUser;
     } catch (error) {
@@ -43,9 +45,36 @@ const checkUser = async(user) => {
     }
 }
 
+const deleteUser = async(data) => {
+    try {
+        //console.log('Elimitar Usuario');
+        //console.log(data);
+        const resultado = await DeleteUser(data);
+        //console.log(resultado);
+        return resultado;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+const Userupdate = async(data, change) => {
+    try {
+        //console.log('Update');
+        //console.log(data);
+        //console.log(change);
+        const resultado = await UpdateUser(data, change);
+        //console.log(resultado);
+        return resultado;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 module.exports = {
     UserCreate,
     ListUsers,
     isAdminStatus,
-    checkUser
+    checkUser,
+    deleteUser,
+    Userupdate
 }

@@ -62,7 +62,7 @@ class Usuario {
 async function CreateUser(first_name, last_name, email, password) {
     let usuario = new Usuario(first_name, last_name, email, password);
     //console.log(usuario)
-    const apiCall = await fetch("http://localhost:3000/user/register", {
+    const apiCall = await fetch(`${host}:${port}/user/register`, {
         method: 'post',
         //Se utiliza application/x-www-form-urlencoded para autorizar envíos CORS
         headers: {
