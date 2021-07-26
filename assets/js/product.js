@@ -61,7 +61,7 @@ async function SubmitEditProduct(event) {
     console.log(product_id);
 
     const productMessage = await editProduct(title, thumbnail, unit_price, condition, quantity_stock, category_id, product_id);
-    console.log(status);
+    console.log(productMessage);
     location.href = "products.html";
 }
 
@@ -132,8 +132,19 @@ async function loadProducts() {
     response.products.forEach( product => {
         renderProduct(product);
     });
+}
 
-    console.log(response);
+async function loadCategories() {
+    //TODO Hacer el endpoint para obtener las categorias
+    //const token = await Login.recuperarUsuario();
+    //const apiCall = await fetch(`${host}:${port}/products/ours`, {
+    //    method: 'get',
+    //    headers: {
+    //        "Accept": "*/*",
+    //        "Content-type": 'application/json',
+    //        "Authorization": `Bearer ${token}`
+    //    }
+    //});
 }
 
 async function renderProduct(product) {
@@ -209,8 +220,9 @@ modalEditProduct.addEventListener('show.bs.modal', function(event) {
     if(recipient.condition === "Nuevo") idCondicion = 1;
     else idCondicion = 2;
     condition.options[idCondicion].setAttribute('selected', true);
-    category_id.options[recipient.category_id].setAttribute('selected', true);
+    category_id.options[recipient.category_id - 1].setAttribute('selected', true);
 })
 
 
 loadProducts();
+loadCategories();
