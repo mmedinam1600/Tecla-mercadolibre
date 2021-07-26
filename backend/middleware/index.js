@@ -83,6 +83,7 @@ const validateParamInUrl = (req, res, next) => {
 const corsOption = {
     //corsOptions tambien se puede usar
     origin: function(origin, callback) {
+        console.log(origin);
         if (process.env.LISTA_BLANCA.indexOf(origin) !== -1) {
             //devuelve menos uno si el dato no esta dentro del array
             callback(null, true);

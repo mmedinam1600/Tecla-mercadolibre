@@ -32,10 +32,7 @@ router.get('/ours', async (req, res) => {
     try {
         const params = req.query;
         const products = await product.getProducts(params);
-        res.status(200).json({
-            message: "OK",
-            products: products
-        });
+        res.status(200).json(products);
     } catch (e) {
         console.log("Error al obtener los productos :(" + e.message);
         res.status(400).json({

@@ -6,7 +6,7 @@ const LevelAdmin = async(req, res, next) => {
         const token = req.headers.authorization.split(' ')[1];
         let verificado = await descubrirToken(token);
         console.log(verificado.data.email);
-        const { email } = await verificado.data.email;
+        const email = await verificado.data.email;
         const result = await isAdminStatus(email);
         if (result) {
             return res.status(200).json({ isadmin: true, email: result });
