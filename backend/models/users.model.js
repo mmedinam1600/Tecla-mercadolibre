@@ -99,10 +99,10 @@ async function CreateDefaultUsers() {
 
 class User {
     constructor(data) {
-        this.first_name = data.first_name,
-            this.last_name = data.last_name,
-            this.email = data.email,
-            this.password = data.password
+        this.first_name = data.first_name;
+        this.last_name = data.last_name;
+        this.email = data.email;
+        this.password = data.password;
     }
 }
 
@@ -222,7 +222,7 @@ async function DeleteUser(data) {
         //console.log(data);
         let user_status = await Users.update({
             active: 0,
-            email: ''
+            email: '' //Se manda el email a cero porque no hay solicitud de reactivación por el momento
         }, {
             where: {
                 user_id: data

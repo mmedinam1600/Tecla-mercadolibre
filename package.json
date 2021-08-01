@@ -4,7 +4,7 @@
     "description": "",
     "main": "./backend/server.js",
     "scripts": {
-        "start": "node --tls-min-v1.0 ./backend/server.js",
+        "start": "nodemon --tls-min-v1.0 ./backend/server.js",
         "dev": "nodemon --tls-min-v1.0"
     },
     "repository": {

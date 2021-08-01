@@ -15,7 +15,7 @@ const ListUsers = async() => {
 const UserDelete = async(data) => {
     const token = await Login.recuperarUsuario();
     const apiCall = await fetch(`${host}:${port}/user/delete/` + data, {
-        method: 'post',
+        method: 'delete',
         headers: {
             "Accept": "*/*",
             "Content-type": 'application/json',
@@ -30,7 +30,7 @@ const UserDelete = async(data) => {
 const editUser = async(data, body) => {
     const token = await Login.recuperarUsuario();
     const apiCall = await fetch(`${host}:${port}/user/editUser/` + data, {
-        method: 'post',
+        method: 'put',
         headers: {
             "Accept": "*/*",
             "Content-type": 'application/x-www-form-urlencoded',
