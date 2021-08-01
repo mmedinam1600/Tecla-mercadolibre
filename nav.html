@@ -2,7 +2,10 @@
     <!-- Container wrapper-->
     <div class="container-fluid">
         <!-- Toggle button-->
-        <button onclick="changeIconHamburger()" id="hamburger" class="navbar-toggler hamburger hamburger--collapse" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="hamburger-box"><span class="hamburger-inner"></span></span>
+        <button onclick="changeIconHamburger()" id="hamburger" class="navbar-toggler hamburger hamburger--collapse"
+                type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="hamburger-box"><span class="hamburger-inner"></span></span>
         </button>
         <!-- Collapsible wrapper-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -12,7 +15,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!--li.nav-itema.nav-link(href='login.html') Login-->
                 <!--<li class="nav-item"><a class="nav-link" id="pago" href="checkout.html">Formulario de pago</a></li>-->
-                <li class="nav-item"><a class="nav-link" id="productos" href="product_list.html">Productos Tendencia</a></li>
+                <li class="nav-item"><a class="nav-link" id="productos" href="product_list.html">Productos Tendencia</a>
+                </li>
                 <li id="ListUsers" class="nav-item"></li>
                 <li id="ListProducts" class="nav-item"></li>
                 <!--li.nav-itema.nav-link(href='perfil.html')
@@ -22,7 +26,8 @@
     |  Ver carrito-->
             </ul>
             <form class="d-flex me-2" method="get" action="search.html">
-                <div class="input-group w-100"><input class="form-control" type="search" name="q" placeholder="Buscar artículos" aria-label="Search">
+                <div class="input-group w-100"><input class="form-control" type="search" name="q"
+                                                      placeholder="Buscar artículos" aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -33,25 +38,49 @@
         <!-- Collapsible wrapper-->
         <!-- Right elements-->
         <div class="d-flex align-items-center">
-            <!-- Carrito--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
-            class="fas fa-shopping-cart"></i><span class="badge rounded-pill badge-notification bg-danger">4</span></a>
+            <!-- Carrito--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#"
+                              role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+            class="fas fa-shopping-cart"></i><span id="items_nav"
+                                                   class="badge rounded-pill badge-notification bg-danger">0</span></a>
             <ul class="dropdown-menu dropdown-menu-end p-4 shadow" aria-labelledby="navbarDropdownMenuLink">
                 <li>
                     <h4><span class="text-dark">Carrito de compras</span></h4>
                 </li>
-                <li class="mb-2"><span class="text-muted">No tiene elementos en su carrito de compras :(</span></li>
-                <li><a class="btn btn-danger" href='shopping_car.html'>Ir al carrito</a></li>
+                <!--<li class="mb-2"><span id="noItems"
+                                       class="text-muted">No tiene elementos en su carrito de compras :(</span></li>-->
+                <li>
+                    <table id="items_carrito_nav" class="table">
+                        <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio (MXN)</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </li>
+                <li>
+                    <a class="btn btn-primary btn-block" href='#' onclick="vaciarCarrito();">Vaciar Carrito</a>
+                    <a class="btn btn-danger btn-block" href='shopping_car.html'>Procesar</a>
+                </li>
             </ul>
-            <!-- Notifications--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-bell"></i><span
-                class="badge rounded-pill badge-notification bg-danger">1</span></a>
+            <!-- Notifications--><a class="text-reset me-3 dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink"
+                                    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+            class="fas fa-bell"></i><span
+            class="badge rounded-pill badge-notification bg-danger">1</span></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                 <li><a class="dropdown-item" href="#">Some news</a></li>
                 <li><a class="dropdown-item" href="#">Another news</a></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
             <!-- Avatar-->
-            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img id="imgProfile" class="rounded-circle" src="./assets/brand/noAuthentication.jpg" height="25" alt="" loading="lazy">
+            <a class="dropdown-toggle d-flex align-items-center hidden-arrow" id="navbarDropdownMenuLink" href="#"
+               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img id="imgProfile" class="rounded-circle" src="./assets/brand/noAuthentication.jpg" height="25" alt=""
+                     loading="lazy">
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink" id="profile">
                 <li><a class="dropdown-item" href="perfil.html">Mi perfil</a></li>

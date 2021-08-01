@@ -29,22 +29,22 @@ async function createModels() {
         console.log("**************************************************");
         console.log("GENERANDO MODELOS...");
         console.log("**************************************************");
-        await sequelize.sync( );
+        await sequelize.sync( ); //Se encarga de cargar todos los modelos cargados anteriormente
         console.log("--------------------------------------------------");
         console.log("**************************************************");
         console.log("CARGANDO ROLES...");
         console.log("**************************************************");
-        await LoadingRoles();
+        await LoadingRoles(); //Se cargan los roles por default (user, seller, administrator)
         //await CreateDefaultUsers();
         console.log("**************************************************");
         console.log("CARGANDO CATEGORIAS...");
         console.log("**************************************************");
-        await CreateDefaultCategories();
+        await CreateDefaultCategories(); //Se cargan las categorias por default
         console.log("--------------------------------------------------");
         console.log("**************************************************");
         console.log("CARGANDO CUENTA ADMIN...");
         console.log("**************************************************");
-        await LoadingOneAdmin();
+        await LoadingOneAdmin(); //Se crea una cuenta admin en caso de que no exista
     } catch (e) {
         throw new Error("Error al generar los modelos en la base de datos. ERROR: " + e.message);
     }

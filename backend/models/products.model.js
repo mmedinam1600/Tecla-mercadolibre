@@ -96,6 +96,16 @@ class Product {
     }
 }
 
+/**
+ *
+ * Description. Función para buscar algun producto dependiendo los parametros.
+ *
+ * @param limit
+ * @param offset
+ * @param category
+ * @param query
+ * @returns {Promise<{results: *, products: Model<TModelAttributes, TCreationAttributes>[]}>}
+ */
 async function findAll(limit, offset ,category, query) {
     try{
         let options = {

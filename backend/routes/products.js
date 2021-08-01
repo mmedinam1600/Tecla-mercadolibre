@@ -29,7 +29,7 @@ router.get('/', validateId, async (req, res) => {
  * Params. limit[number] | category[number] | query[string] seller_id[number] | product_id[number]
  * Description. Devuelve todos los productos de nuestra DB
  */
-router.get('/ours', LevelAdmin, UserInSession, async (req, res) => {
+router.get('/ours', async (req, res) => {
     try {
         const params = req.query;
         const products = await product.getProducts(params);

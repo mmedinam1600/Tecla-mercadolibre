@@ -1,5 +1,5 @@
 
-const { arrayOfCategories } = require('../db/CategoriesClass');
+const { MercadoClass } = require('../db/MercadoClass');
 
 /**
  *
@@ -21,12 +21,14 @@ const findCategory = (id) => {
  *
  * @returns {Promise<[]>} Consulta en la BD el array de categorias
  */
-const getCategoriesApp = async () => {
-  return arrayOfCategories;
+const getCategoriesML = async () => {
+  const mercadoService = new MercadoClass(`sites/${process.env.SITE_ID}`);
+  const data = await mercadoService.makeFech();
+  return data.categories;
 }
 
 
 module.exports = {
   findCategory,
-  getCategoriesApp
+  getCategoriesML
 }

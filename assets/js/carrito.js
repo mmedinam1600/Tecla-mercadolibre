@@ -20,7 +20,7 @@ class Carrito{
     console.log(this.listaProductos);
   }
 
-  getTotal(){
+  getTotal2(){
     return this.total;
   }
 

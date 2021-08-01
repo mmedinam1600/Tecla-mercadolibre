@@ -1,6 +1,8 @@
 const { User, CreateUser, SearchUser, ListAllUsers, isAdmin, DeleteUser, UpdateUser } = require('../models/users.model');
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
 
+//Estos controladores son llamados desde las rutas de nuestra API
+
 const UserCreate = async(data) => {
     try {
         let user = await new User(data);

@@ -75,7 +75,26 @@ async function CreateDefaultCategories() {
     }
 }
 
+const findAll = async () => {
+    try {
+        const options = {
+            where: {
+                active: 1
+            }
+        }
+        const categories = await Categories.findAll(options);
+        const results = await Categories.count(options);
+        return {
+            results,
+            categories
+        };
+    } catch (e) {
+        throw new Error("Error al encontrar las categorias: " + e.message);
+    }
+}
+
 
 module.exports = {
-    CreateDefaultCategories
+    CreateDefaultCategories,
+    findAll
 }

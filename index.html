@@ -4,93 +4,122 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.80.0">
+    <meta name="description" content="Página de e-commerce">
+    <meta name="author" content="Samuel y Miguel">
+    <meta name="keywords" content="ecommerce,tienda">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    <meta name="revisit-after" content="1 days">
     <title>Tecla Tienda Online</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/carousel/">
-    <link rel="stylesheet" href="./assets/dist/css/hamburgers.css">
-
-
 
     <!-- Bootstrap core CSS -->
     <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="./assets/css/all.css">
+    <!-- CUSTOM -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- HAMBURGERS (icono de el navbar) -->
+    <link rel="stylesheet" href="./assets/dist/css/hamburgers.css">
     <!-- Custom styles for this template -->
     <link href="./assets/dist/css/carousel.css" rel="stylesheet">
-
 </head>
 
 <body>
+<!-- NAVBAR (Se carga mediante otro archivo via JS)-->
+<header>
+    <nav id="nav"></nav>
+</header>
 
-    <header>
-        <nav id="nav"></nav>
-    </header>
-
-    <main>
-
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div id="carousel-1-1" class="carousel-item p-4 text-center active" style="background-color: #c3cdd7;">
-                </div>
-                <div id="carousel-1-2" class="carousel-item p-4 text-center" style="background-color: #c3cdd7;">
-                </div>
-                <div id="carousel-1-3" class="carousel-item p-4 text-center" style="background-color: #c3cdd7;">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+<main>
+    <section id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
+        <div class="carousel-inner">
+            <div id="carousel-1-1" class="carousel-item p-4 text-center active" style="background-color: #c3cdd7;">
+            </div>
+            <div id="carousel-1-2" class="carousel-item p-4 text-center" style="background-color: #c3cdd7;">
+            </div>
+            <div id="carousel-1-3" class="carousel-item p-4 text-center" style="background-color: #c3cdd7;">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </section>
+    <section class="container marketing">
 
-        <div class="container marketing">
-            <section class="text-center container">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Tendencias en Mercado Libre</h1>
-                        <p class="lead text-muted">Conoce lo que es lo que los usuarios tienden a buscar en México.</p>
-                        <p>
-                            <select class="form-control" id="categorias" onchange="changeCategory(this);">
-                            <option disabled selected>Selecciona una categoría</option>
+        <section class="text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Productos de Mercado Libre</h1>
+                    <p class="lead text-muted">Conoce que productos que nos ofrece Mercado Libre.</p>
+                    <p>
+                        <select class="form-control" id="categoriasML" onchange="changeCategory(this);">
+                            <option disabled selected>Busca productos por su categoría</option>
                         </select>
-                        </p>
-                    </div>
+                    </p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <div id="listProducts" class="row">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" id="tarjetas_ml">
 
             </div>
         </div>
-        <!-- /.container -->
+
+        <section class="text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Productos de Nuestra Tienda</h1>
+                    <p class="lead text-muted">Conoce que productos ofrecen nuestros usuarios.</p>
+                    <p>
+                        <select class="form-control" id="our_categories" onchange="changeCategory(this);">
+                            <option disabled selected>Busca productos por su categoría</option>
+                        </select>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4" id="tarjetas_nuestras">
+
+            </div>
+        </div>
 
 
-        <!-- FOOTER -->
-        <footer id="footerGeneral" class="container pt-4">
-        </footer>
-    </main>
+    </section>
 
-    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/config.js"></script>
-    <script src="./assets/js/login.js"></script>
-    <script src="./assets/js/menu.js"></script>
-    <script src="./assets/js/select_option_categories.js"></script>
-    <script src="./assets/js/footer.js"></script>
-    <script src="./assets/js/storage.js"></script>
-    <script src="./assets/js/index_app.js"></script>
-    <!--<script src="./assets/js/index_app.js"></script>-->
+    <!-- FOOTER -->
+    <footer id="footerGeneral" class="container pt-4">
+    </footer>
+</main>
+
+<!-- Bootstrap core JS -->
+<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CONFIG -->
+<script src="./assets/js/config.js"></script>
+<!-- LOGIN -->
+<script src="./assets/js/login.js"></script>
+<!-- NAVBAR -->
+<script src="./assets/js/menu.js"></script>
+<!-- LOAD CATEGORIES -->
+<script src="./assets/js/select_option_categories.js"></script>
+<!-- FOOTER -->
+<script src="./assets/js/footer.js"></script>
+<!-- STORAGE CAR -->
+<script src="./assets/js/storage.js"></script>
+<!-- GENERAL PROPOSE -->
+<script src="./assets/js/index_app.js"></script>
 </body>
-
 </html>

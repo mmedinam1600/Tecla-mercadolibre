@@ -1,5 +1,4 @@
-//let host = 'http://localhost';
-//let port = 3000;
+const elementsCarousel = document.getElementsByClassName('carousel-item');
 
 async function renderCarousel(data, divToWrite) {
     if (data) {
@@ -33,12 +32,12 @@ async function renderCarousel(data, divToWrite) {
             buttonProduct.innerHTML = `
                 <form name="ShoppingList">
                         <label for="${element.id}" class="visually-hidden">Cantidad</label>
-                        <div class="input-group">
-                            <div class="input-group-text">
-                                <input type="button" value="+" class="btn btn-primary me-1" onclick="addCart('${element.id}');"/>
-                                <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${element.id}');"/>
+                        <div class="input-group d-grid gap-2">
+                            <!--<div class="input-group-text"> -->
+                                <input type="button" value="Agregar al carrito" class="btn btn-primary me-1" onclick="addToCart('${element.id}');"/>
+                                <!-- <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${element.id}');"/>
                             </div>
-                            <input type="number" class="form-control" id="${element.id}" placeholder="Cantidad" value="1">
+                            <input type="number" class="form-control" id="${element.id}" placeholder="Cantidad" value="1">-->
                         </div>
                     </form>
             `;
@@ -49,74 +48,6 @@ async function renderCarousel(data, divToWrite) {
             option_col_2.appendChild(titleProduct);
             option_col_2.appendChild(priceProduct);
             option_col_2.appendChild(buttonProduct);
-        }
-    } else {
-        console.error("El objeto no es el adecuado");
-    }
-}
-
-async function renderCardsProducts(data) {
-    if (data) {
-        divListProducts.innerHTML = '';
-        for (let index = 0; index < 5; index++) {
-
-            let divRow = document.createElement('div');
-            divRow.setAttribute('id', 'row-' + index);
-            divRow.setAttribute('class', 'row');
-
-            divListProducts.appendChild(divRow);
-
-            for (let cardIndex = 0; cardIndex < 4; cardIndex++) {
-                const valorRandomId = Math.floor(Math.random() * data.length); //Random para productos
-
-                let divCol = document.createElement('div');
-                divCol.setAttribute('class', 'col pt-3');
-                divRow.appendChild(divCol);
-
-                const product = data[valorRandomId];
-
-                let divCard = document.createElement('div');
-                divCard.setAttribute('class', 'card');
-                divCard.setAttribute('id', `Card_${product.id}`);
-                divCard.setAttribute('style', 'width: 18rem;');
-                divCol.appendChild(divCard);
-
-
-                let imgProduct = document.createElement('img');
-                imgProduct.setAttribute('src', product.thumbnail);
-                imgProduct.setAttribute('class', 'card-img-top');
-                imgProduct.setAttribute('width', '100px');
-
-                let priceProduct = document.createElement('h5');
-                priceProduct.innerHTML = 'Precio: $' + product.price;
-
-                let cardBody = document.createElement('div');
-                cardBody.setAttribute('class', 'card-body');
-
-                let cardHead = document.createElement('h5');
-                cardHead.innerHTML = product.title;
-                cardHead.setAttribute('class', 'card-title');
-
-                let buttonCard = document.createElement('p');
-                buttonCard.innerHTML = `
-                    <form name="ShoppingList">
-                        <label for="${product.id}" class="visually-hidden">Cantidad</label>
-                        <div class="input-group">
-                            <div class="input-group-text">
-                                <input type="button" value="+" class="btn btn-primary me-1" onclick="addCart('${product.id}');"/>
-                                <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${product.id}');"/>
-                            </div>
-                            <input type="number" class="form-control" id="${product.id}" placeholder="Cantidad" value="1">
-                        </div>
-                    </form>
-                `;
-
-                divCard.appendChild(imgProduct);
-                divCard.appendChild(cardBody);
-                cardBody.appendChild(cardHead);
-                cardBody.appendChild(priceProduct);
-                cardBody.appendChild(buttonCard);
-            }
         }
     } else {
         console.error("El objeto no es el adecuado");
@@ -135,33 +66,84 @@ async function carouselElements() {
 
 async function cardsProducts() {
     try {
-        let data = await fetch(`${host}:${port}/search?category=MLM1648&limit=50`);
-        let items = await data.json();
-        renderCardsProducts(items.products, elementsCarousel);
+        const products = await getData('search?category=MLM1648&limit=10');
+        renderCardsProducts(products.products, "tarjetas_ml");
+        const products_ours = await getData(`products/ours?limit=10`);
+        renderCardsProducts(products_ours.products, "tarjetas_nuestras");
     } catch (error) {
         console.error("Error de productos durante la carga inicial");
     }
 }
 
-let changeCategory = async(element) => {
+let changeCategory = async (element) => {
     try {
-        let nuevaCategoria = element.value;
-        let data = await fetch(`${host}:${port}/search?category=${nuevaCategoria}&limit=50`);
-        let newItem = await data.json();
-        renderCardsProducts(newItem.products, elementsCarousel);
+        const nuevaCategoria = element.value;
+        if(nuevaCategoria.startsWith('MLM')){
+            const newProductByCategory = await getData(`search?category=${nuevaCategoria}&limit=10`);
+            renderCardsProducts(newProductByCategory.products, 'tarjetas_ml');
+        } else {
+            const newProductsByCategory = await getData(`products/ours?category=${nuevaCategoria}`);
+            console.log(newProductsByCategory);
+            renderCardsProducts(newProductsByCategory.products, 'tarjetas_nuestras');
+        }
     } catch (error) {
         console.error("Error durante la carga de productos, por favor, seleccione otra categoría.");
     }
 }
 
-const elementsCarousel = document.getElementsByClassName('carousel-item');
-const divListProducts = document.getElementById('listProducts');
+const renderCardsProducts = (products, tarjetasID) => {
+    const cards = document.getElementById(tarjetasID);
+    cards.innerHTML = "";
+    if(products.length > 0) {
+        products.forEach((product) => {
+            let card = `
+            <div class="card" style="width: 100%">
+                <img src="${product.thumbnail}" class="card-img-top" alt="${product.title}" style="max-height: 300px; min-height:300px ">
+                <div class="card-header">
+                    <b>$${product.price || product.unit_price} MXN</b>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="${product.permalink || '#'}">${product.title}<span style="color: gray; font-size: 0.7rem"> (${product.id || product.product_id})</span></a> <span style="color: red; font-size: 0.7rem">${product.condition}</span></h5>
+                    <label for="${product.id || product.product_id}" class="visually-hidden">Cantidad</label>
+                    <div class="input-group d-grid gap-2">
+                        <!--<div class="input-group-text">-->
+                            <input type="button" value="Agregar al carrito" class="btn btn-primary me-1 " onclick="addToCart('${product.id || product.product_id}');"/>
+                            <!--<input type="button" value="-" class="btn btn-danger" onclick="removeCart('${product.id || product.product_id}','1');"/>-->
+                        <!--</div>-->
+                        <!--<input type="number" class="form-control" id="${product.id || product.product_id}" placeholder="Cantidad" value="1">-->
+                    </div>
+                </div>
+            </div>
+            `;
+            let element = document.createElement('div');
+            element.setAttribute('class', 'col-md-3 d-flex align-items-stretch my-3');
+            element.innerHTML = card;
+            cards.appendChild(element);
+        });
+    } else {
+        const noData = document.createElement('p');
+        noData.innerHTML = "No hay resultados para esta categoría";
+        cards.appendChild(noData);
+    }
+}
+
+/* CARGAMOS LAS CATEGORIAS EN LA PÁGINA PRINCIPAL */
+async function loadCategories(){
+    try {
+        const categoriesML = await getData('category/');
+        await renderSelectCategories(categoriesML, 'categoriasML');
+        const { categories } = await getData('category/ours/');
+        await renderSelectCategories(categories, 'our_categories');
+    } catch (e) {
+        console.error(`Error al obtener/renderizar las categorias ML. ERROR: ${e.message}`);
+        alert(`Error al cargar las categorias.`);
+    }
+}
 
 try {
     carouselElements();
     cardsProducts();
-    //categories();
+    loadCategories();
 } catch (error) {
     console.error("Error durante la carga inicial");
 }
-

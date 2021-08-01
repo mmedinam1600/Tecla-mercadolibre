@@ -60,42 +60,6 @@ Users.init({
     createdAt: 'created_at'
 });
 
-/*
-async function CreateDefaultUsers() {
-    try {
-        //await Users.sync({ alter: true }); //Cuando hay valores default MSSQL no soporta el ALTER TABLE y modifcarle el DEFAULT
-        let users = await Users.count();
-        if (users == 0) {
-            const admin = await Users.create({
-                first_name: "Administrador",
-                last_name: "",
-                email: "admin@mail.com",
-                encrypted_password: await bcrypt.hashSync("123456" + "admin@mail.com", saltRounds),
-                "rol_id": 3
-            });
-            const user = await Users.create({
-                first_name: "Jose",
-                last_name: "Praxedes",
-                email: "jose@mail.com",
-                encrypted_password: await bcrypt.hashSync("jaiba" + "jose@mail.com", saltRounds),
-                "rol_id": 1
-            });
-            const seller = await Users.create({
-                first_name: "Jose",
-                last_name: "Ortiz",
-                email: "pepe@mail.com",
-                encrypted_password: await bcrypt.hashSync("pepe123" + "pepe@mail.com", saltRounds),
-                "rol_id": 2
-            });
-            console.log('Usuarios creados satisfactoriamente.');
-        } else {
-            console.log('Usuarios existentes: ' + users);
-        }
-    } catch (error) {
-        console.log('Error en la creacion de usuarios default ' + error);
-    }
-}
- */
 
 class User {
     constructor(data) {
