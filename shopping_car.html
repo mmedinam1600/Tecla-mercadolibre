@@ -59,19 +59,23 @@
             <strong>$20</strong>
           </li>
           -->
-
                     </ul>
                     <div class="input-group">
                         <p id="precio_total">Total: 0</p>
                     </div>
-                    <form class="card p-2">
+
+                    <div class="card p-2 mb-2">
+                        <div class="input-group" id="dirección">
+                        </div>
+                    </div>
+
+                    <div class="card p-2">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Código promocional">
                             <button type="submit" class="btn btn-secondary">Redimir</button>
                         </div>
-                    </form>
-
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">Pagar</button>
+                        <button class="w-100 btn btn-primary btn-lg" onclick="hacerPago();">Pagar</button>
+                    </div>
                     <!-- <button class="w-100 btn btn-danger btn-lg mt-2" onclick="location.href='index.html'">Seguir Comprando</button>-->
                 </div>
             </div>

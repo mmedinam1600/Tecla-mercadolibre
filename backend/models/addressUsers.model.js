@@ -1,5 +1,6 @@
 const { sequelize, DataTypes } = require('../db/conexion');
 
+const { getAddress } = require('./addresses.model');
 
 const AddressUsers = sequelize.define('AddressUsers', {
     address_id: {
@@ -45,6 +46,19 @@ async function CreateAddressUser(address, user) {
     }
 }
 
+async function findAll(idUser) {
+    let getRelationAddress = await AddressUsers.findAll({
+        where: {
+            user_id: idUser,
+            active: true
+        }
+    });
+    const addressID = getRelationAddress[0].dataValues.address_id;
+    const getAddressInfo = await getAddress(addressID);
+    return getAddressInfo;
+}
+
 module.exports = {
     CreateAddressUser,
+    findAll
 }

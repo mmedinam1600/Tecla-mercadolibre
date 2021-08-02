@@ -1,5 +1,5 @@
 const { CreateAdress } = require('../models/addresses.model');
-const { CreateAddressUser } = require('../models/addressUsers.model');
+const { CreateAddressUser, findAll } = require('../models/addressUsers.model');
 
 //Estos controladores son llamados desde las rutas de nuestra API
 
@@ -12,6 +12,15 @@ const AddressCreate = async(data, user) => {
         return addressUser;
     } catch (error) {
         throw new Error('Error en controlador AddressCreate: ' + error.message);
+    }
+}
+
+const GetAddress = async(idUser) => {
+    try{
+        let address = await findAll(idUser);
+        return address;
+    } catch (e) {
+        throw new Error('Error en controlador GetAddress: ' + e.message);
     }
 }
 
@@ -42,4 +51,5 @@ const Userupdate = async(data, change) => {
 
 module.exports = {
     AddressCreate,
+    GetAddress
 }

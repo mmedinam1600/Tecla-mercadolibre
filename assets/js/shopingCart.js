@@ -1,18 +1,78 @@
-
 const carritoDiv = document.getElementById('items');
 
-const desplegarCarrito = async() => {
+const direccion = document.getElementById('dirección');
+
+let directionError = false;
+
+const desplegarDireccion = async () => {
+    try {
+        let idUsuario = document.getElementById('user_id');
+        idUsuario = idUsuario.innerHTML;
+        const direccionUser = await getData(`address/${idUsuario}`);
+        console.log(direccionUser);
+        if (direccionUser.error) {
+            directionError = true;
+            const cardDireccion = document.createElement('div');
+            cardDireccion.innerHTML = `
+            <p>No tiene registrada una dirección:</p>
+            <div id="domicilios" class="pt-4">
+                <a type="button" id="btAddDomicilio" class="btn btn-success" href="perfil.html#btAddDomicilio">Agregar una dirección</a>
+            </div>
+            `;
+            direccion.appendChild(cardDireccion);
+            return;
+        }
+        console.log(direccionUser);
+        const cardDireccion = document.createElement('div');
+        cardDireccion.innerHTML = `
+        <p>Dirección:</p>
+        <p>Estado: ${direccionUser.state}</p>
+        <p>Alcaldía: ${direccionUser.city_hall}</p>
+        <p>Colonia: ${direccionUser.colony}</p>
+        <p>Calle: ${direccionUser.street}</p>
+        <p>Numero ext: ${direccionUser.number} Número int: ${direccionUser.inner_number}</p>
+        <p>Código postal: ${direccionUser.postal_code}</p>
+        <p>Entre calles: ${direccionUser.street1} y ${direccionUser.street2} </p>
+        <p>Telefono: ${direccionUser.mobile_number}</p>
+        <p>Información adicional: ${direccionUser.additional_info}</p>
+    `;
+        direccion.appendChild(cardDireccion);
+    } catch (e) {
+        directionError = true;
+        console.error(e.message);
+    }
+}
+
+setTimeout(async () => {
+    await desplegarDireccion();
+}, 2000);
+
+const hacerPago = () => {
+    if (compra.obtenerProductosLocalStorage().length < 0) {
+        alert("Debes agregar productos a tu carrito");
+    } else if (document.getElementById('user_id') === null) {
+        alert("Debes iniciar sesión.");
+        location.href = "login.html";
+    } else if (directionError === true) {
+        alert("Debes configurar la dirección a tu cuenta");
+    } else {
+        location.href = "thankyou.html";
+        compra.vaciarCarrito();
+    }
+}
+
+const desplegarCarrito = async () => {
     const carrito = compra.obtenerProductosLocalStorage();
-    if(carrito.length < 0){
+    if (carrito.length < 0) {
         //Decirle que el carrito esta vacio
         return;
     }
     let ids = "";
-    carrito.forEach( (producto) => {
+    carrito.forEach((producto) => {
         let itemHtml = `<li class="list-group-item d-flex justify-content-between lh-sm">
                             <div id="carrito_${producto.id}">
                                 <h6 class="my-0">${producto.title}</h6>
-                                <img src="${producto.thumbnail}" alt="imagen">
+                                <img src="${producto.thumbnail}" alt="imagen" style="min-width: 50px; max-width: 100px">
                                 <label for="cantidad">Cantidad: </label>
                                 <input type="number" id="cantidad-${producto.id}" value="${producto.cantidad}" style="max-width: 55px" onchange="compra.actualizarCostos('${producto.id}')">
                                 <span class="text-muted">Precio unitario $<span id="precio-producto-${producto.id}">${producto.price}</span></span>
@@ -35,7 +95,7 @@ desplegarCarrito();
 const renderItems = (items) => {
     let i = 1;
     let total = 0;
-    if(items.length > 1){
+    if (items.length > 1) {
         document.getElementById('totalItems').innerHTML = items.length;
     }
     items.forEach(item => {

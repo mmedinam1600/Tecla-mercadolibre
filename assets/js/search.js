@@ -43,11 +43,7 @@ let renderResult = (requestMercadoService) => {
                     <form name="ShoppingList">
                         <label for="${id}" class="visually-hidden">Cantidad</label>
                         <div class="input-group">
-                            <div class="input-group-text">
-                                <input type="button" value="+" class="btn btn-primary me-1" onclick="addCart('${id}');"/>
-                                <input type="button" value="-" class="btn btn-danger" onclick="removeCart('${id}','1');"/>
-                            </div>
-                            <input type="number" class="form-control" id="${id}" placeholder="Cantidad" value="1">
+                            <input type="button" value="Agregar al carrito" class="btn btn-primary me-1" onclick="addToCart('${id}');"/>
                         </div>
                     </form>
                 </div>

@@ -92,6 +92,16 @@ async function CreateAdress(address) {
     }
 }
 
+async function getAddress(addressID) {
+    let address = await Addresses.findAll({
+        where: {
+            address_id: addressID
+        }
+    });
+    return address;
+}
+
 module.exports = {
     CreateAdress,
+    getAddress
 }

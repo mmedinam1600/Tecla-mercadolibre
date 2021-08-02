@@ -155,7 +155,7 @@ async function findBySeller(id, limit, offset) {
             limit,
             where: {
                 users_id: id,
-                active: 1
+                active: true
             }
         }
         const products = await Products.findAll(options);
