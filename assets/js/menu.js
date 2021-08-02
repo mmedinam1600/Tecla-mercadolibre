@@ -52,7 +52,7 @@ async function load() {
             <a class="nav-link" id="listProducts" href="products.html">Lista Productos</a>`;
     }
 
-    if (status_session.type != undefined && status_session.type == 1) {
+    if (status_session.type != undefined && status_session.type != 3) {
         const nombre = document.createElement('li');
         nombre.innerHTML = `<div class="dropdown-item text-muted"><span>${status_session.user.name}#</span><span id="user_id">${status_session.user.id}</span></div>`;
         document.getElementById('profile').append(nombre);
