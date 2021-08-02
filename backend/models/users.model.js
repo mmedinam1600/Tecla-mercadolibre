@@ -214,6 +214,60 @@ async function isAdmin(data) {
     }
 }
 
+async function userProfile(id) {
+    try {
+        let user = {};
+        let user_get = await sequelize.query(`SELECT Users.*, AddressUsers.*, Addresses.* FROM Users FULL OUTER JOIN AddressUsers ON AddressUsers.user_id = Users.user_id  INNER JOIN Addresses ON  AddressUsers.address_id = Addresses.address_id WHERE AddressUsers.active = 1 AND Users.user_id=${id}`);
+        if (!user_get[0].length) {
+            console.log('UserProfile')
+            user_get = await Users.findByPk(id);
+            user = {
+                user_id: user_get.dataValues.user_id,
+                first_name: user_get.dataValues.first_name,
+                last_name: user_get.dataValues.last_name,
+                email: user_get.dataValues.email,
+                country_code: user_get.dataValues.country_code,
+                mobile_number: user_get.dataValues.mobile_number,
+                domicilios: []
+            }
+        } else {
+            user = {
+                user_id: user_get[0][0].user_id,
+                first_name: user_get[0][0].first_name,
+                last_name: user_get[0][0].last_name,
+                email: user_get[0][0].email,
+                country_code: user_get[0][0].country_code,
+                mobile_number: user_get[0][0].mobile_number,
+                domicilios: []
+            }
+
+            const domicilios_user = [];
+            for (let index = 0; index < user_get[0].length; index++) {
+                const direccion = user_get[0][index];
+                domicilios_user.push({
+                    relacion_id: direccion.id,
+                    fullname: direccion.fullname,
+                    postal_code: direccion.postal_code,
+                    state: direccion.state,
+                    city_hall: direccion.city_hall,
+                    colony: direccion.colony,
+                    street: direccion.street,
+                    number: direccion.number,
+                    inner_number: direccion.inner_number,
+                    street1: direccion.street1,
+                    street2: direccion.street2,
+                    mobile_number: direccion.mobile_number,
+                    additional_info: direccion.additional_info,
+                });
+            }
+            user.domicilios = domicilios_user;
+        }
+        return user;
+    } catch (error) {
+        throw new Error('Error en la función userProfile: ' + error.message);
+    }
+}
+
 module.exports = {
     User,
     CreateTableUsers,
@@ -224,5 +278,6 @@ module.exports = {
     DeleteUser,
     UpdateUser,
     SearchUser,
-    LoadingOneAdmin
+    LoadingOneAdmin,
+    userProfile
 }

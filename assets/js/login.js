@@ -1,4 +1,3 @@
-
 class Login {
     constructor(name, password) {
         this.name = name;
@@ -30,6 +29,13 @@ async function login(email, password) {
         body: `json=${JSON.stringify(usuario)}`,
     });
     const response = await apiCall.json();
+
+    if (response.token == undefined) {
+        console.log('error');
+        console.log(await response)
+        throw new Error(response);
+    }
+
     return response.token;
 }
 
@@ -49,15 +55,23 @@ const ConfirmLogin = async() => {
 }
 
 async function validateForm(event) {
-    event.preventDefault();
-    const email = document.getElementById('inputEmail').value;
-    const pass = document.getElementById('inputPassword').value;
-    Login.guardarUsuario(new Login(email, pass));
-    const resultado = await login(email, pass);
-    console.log('Token generado en el login: ', resultado);
-    Login.guardarUsuario(resultado);
-    if (resultado) {
-        location.href = "index.html";
+    try {
+        event.preventDefault();
+        document.getElementById('message-login').innerHTML = ''
+        const email = document.getElementById('inputEmail').value;
+        const pass = document.getElementById('inputPassword').value;
+        Login.guardarUsuario(new Login(email, pass));
+        const resultado = await login(email, pass);
+        console.log('Token generado en el login: ', resultado);
+        Login.guardarUsuario(resultado);
+        if (resultado) {
+            location.href = "index.html";
+        }
+    } catch (error) {
+        document.getElementById('message-login').innerHTML = `<div class="alert alert-warning alert-dismissible fade show text-sm-start" role="alert">` +
+            `${error.message}` +
+            `<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>` +
+            `</div>`;
     }
 }
 

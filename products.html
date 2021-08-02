@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -16,87 +16,81 @@
 </head>
 
 <body>
-<header>
-    <nav id="nav"></nav>
-</header>
+    <header>
+        <nav id="nav"></nav>
+    </header>
 
-<main>
-    <div class="container">
-        <div class="title-box" style="padding: 3rem 1.5rem 2rem;">
-            <h1>Gestión de Productos</h1>
-            <p class="lead">Página que permite a los usuarios administradores gestionar los productos registrados
-                dentro del sistema.</p>
-        </div>
+    <main>
+        <div class="container">
+            <div class="title-box" style="padding: 3rem 1.5rem 2rem;">
+                <h1>Gestión de Productos</h1>
+                <p class="lead">Página que permite a los usuarios administradores gestionar los productos registrados dentro del sistema.</p>
+            </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewUser">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewUser">
             <b>+</b> Añadir Producto
         </button>
-        <br><br>
-        <!-- Modal -->
-        <div class="modal fade" id="modalNewUser" tabindex="-1" aria-labelledby="modalNewUserLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalNewUserLabel">Crear Producto</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="CreateForm" onsubmit="return SubmitProduct(event)" class="needs-validation" novalidate>
-                        <div class="modal-body">
-                            <div id="messagesInicio"></div>
-                            <div class="row g-3">
-                                <div class="col-sm-12">
-                                    <label for="title" class="form-label">Título</label>
-                                    <input type="text" class="form-control" id="title" placeholder="" value=""
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Ingresa el título del producto para continuar.
+            <br><br>
+            <!-- Modal -->
+            <div class="modal fade" id="modalNewUser" tabindex="-1" aria-labelledby="modalNewUserLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalNewUserLabel">Crear Producto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="CreateForm" onsubmit="return SubmitProduct(event)" class="needs-validation" novalidate>
+                            <div class="modal-body">
+                                <div id="messagesInicio"></div>
+                                <div class="row g-3">
+                                    <div class="col-sm-12">
+                                        <label for="title" class="form-label">Título</label>
+                                        <input type="text" class="form-control" id="title" placeholder="" value="" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa el título del producto para continuar.
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-12">
-                                    <label for="thumbnail" class="form-label">Miniatura</label>
-                                    <input type="text" class="form-control" id="thumbnail"
-                                           placeholder="Link de la miniatura" value=""
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Ingresa el link de la miniatura para continuar.
+                                    <div class="col-sm-12">
+                                        <label for="thumbnail" class="form-label">Miniatura</label>
+                                        <input type="text" class="form-control" id="thumbnail" placeholder="Link de la miniatura" value="" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa el link de la miniatura para continuar.
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-6">
-                                    <label for="unit_price" class="form-label">Precio por unidad</label>
-                                    <input type="number" class="form-control" id="unit_price" placeholder=""
-                                           required>
-                                    <div class="invalid-feedback">
-                                        Ingresa un precio para continuar.
+                                    <div class="col-6">
+                                        <label for="unit_price" class="form-label">Precio por unidad</label>
+                                        <input type="number" class="form-control" id="unit_price" placeholder="" required>
+                                        <div class="invalid-feedback">
+                                            Ingresa un precio para continuar.
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <label for="condition" class="form-label">Condicion</label>
-                                    <select class="form-select" required id="condition"
-                                            aria-label="Default select example">
+                                    <div class="col-sm-6">
+                                        <label for="condition" class="form-label">Condicion</label>
+                                        <select class="form-select" required id="condition" aria-label="Default select example">
                                         <option selected disabled value="">Selecciona condicion</option>
                                         <option value="Nuevo">nuevo</option>
                                         <option value="Usado">usado</option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        Debes seleccionar la condicion del producto
+                                        <div class="invalid-feedback">
+                                            Debes seleccionar la condicion del producto
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <label for="quantity_stock" class="form-label">Stock disponible</label>
-                                    <input type="number" class="form-control" id="quantity_stock" required>
-                                    <div class="invalid-feedback">
-                                        El stock debe contener un número
+                                    <div class="col-sm-6">
+                                        <label for="quantity_stock" class="form-label">Stock disponible</label>
+                                        <input type="number" class="form-control" id="quantity_stock" required>
+                                        <div class="invalid-feedback">
+                                            El stock debe contener un número
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-sm-6">
-                                    <label for="category_id" class="form-label">Categoría</label>
-                                    <select class="form-select" id="category_id" required>
+                                    <div class="col-sm-6">
+                                        <label for="category_id" class="form-label">Categoría</label>
+                                        <select class="form-select" id="category_id" required>
                                         <option selected disabled value="">Selecciona la categoría</option>
                                         <option value="2">Accesorios para Vehículos</option>
                                         <option value="3">Agro</option>
@@ -128,103 +122,98 @@
                                         <option value="29">Servicios</option>
                                         <option value="30">Otras Categorías</option>
                                     </select>
+                                        <div class="invalid-feedback">
+                                            Debes seleccionar una categoría
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Crear producto</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered grocery-crud-table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Miniatura</th>
+                        <th>Titulo</th>
+                        <th>Precio</th>
+                        <th>Condición</th>
+                        <th>Vendedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="table_body">
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal EDIT -->
+        <div class="modal fade" id="modalEditProduct" tabindex="-1" aria-labelledby="modalEditProductLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditProductLabel">Editar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="EditForm" onsubmit="return SubmitEditProduct(event)" class="needs-validation" novalidate>
+                        <div class="modal-body">
+                            <div id="messagesInicioProducts"></div>
+                            <div class="row g-3">
+                                <div class="col-sm-12">
+                                    <label for="title_edit" class="form-label">Título</label>
+                                    <input type="text" class="form-control" id="title_edit" placeholder="" value="" required>
+                                    <input type="number" class="form-control" id="product_id_edit" hidden="">
                                     <div class="invalid-feedback">
-                                        Debes seleccionar una categoría
+                                        Ingresa el título del producto para continuar.
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Crear producto</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <table class="table table-bordered grocery-crud-table table-hover">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Miniatura</th>
-                <th>Titulo</th>
-                <th>Precio</th>
-                <th>Condición</th>
-                <th>Vendedor</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody id="table_body">
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Modal EDIT -->
-    <div class="modal fade" id="modalEditProduct" tabindex="-1" aria-labelledby="modalEditProductLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEditProductLabel">Editar Producto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="EditForm" onsubmit="return SubmitEditProduct(event)" class="needs-validation" novalidate>
-                    <div class="modal-body">
-                        <div id="messagesInicioProducts"></div>
-                        <div class="row g-3">
-                            <div class="col-sm-12">
-                                <label for="title_edit" class="form-label">Título</label>
-                                <input type="text" class="form-control" id="title_edit" placeholder="" value=""
-                                       required>
-                                <input type="number" class="form-control" id="product_id_edit" hidden="">
-                                <div class="invalid-feedback">
-                                    Ingresa el título del producto para continuar.
+                                <div class="col-sm-12">
+                                    <label for="thumbnail_edit" class="form-label">Miniatura</label>
+                                    <input type="text" class="form-control" id="thumbnail_edit" placeholder="Link de la miniatura" value="" required>
+                                    <div class="invalid-feedback">
+                                        Ingresa el link de la miniatura para continuar.
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-12">
-                                <label for="thumbnail_edit" class="form-label">Miniatura</label>
-                                <input type="text" class="form-control" id="thumbnail_edit"
-                                       placeholder="Link de la miniatura" value=""
-                                       required>
-                                <div class="invalid-feedback">
-                                    Ingresa el link de la miniatura para continuar.
+                                <div class="col-6">
+                                    <label for="unit_price_edit" class="form-label">Precio por unidad</label>
+                                    <input type="number" class="form-control" id="unit_price_edit" placeholder="" required>
+                                    <div class="invalid-feedback">
+                                        Ingresa un precio para continuar.
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <label for="unit_price_edit" class="form-label">Precio por unidad</label>
-                                <input type="number" class="form-control" id="unit_price_edit" placeholder=""
-                                       required>
-                                <div class="invalid-feedback">
-                                    Ingresa un precio para continuar.
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <label for="condition_edit" class="form-label">Condicion</label>
-                                <select class="form-select" required id="condition_edit"
-                                        aria-label="Default select example">
+                                <div class="col-sm-6">
+                                    <label for="condition_edit" class="form-label">Condicion</label>
+                                    <select class="form-select" required id="condition_edit" aria-label="Default select example">
                                     <option selected disabled value="">Selecciona condicion</option>
                                     <option value="Nuevo">nuevo</option>
                                     <option value="Usado">usado</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Debes seleccionar la condicion del producto
+                                    <div class="invalid-feedback">
+                                        Debes seleccionar la condicion del producto
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                <label for="quantity_stock_edit" class="form-label">Stock disponible</label>
-                                <input type="number" class="form-control" id="quantity_stock_edit" required>
-                                <div class="invalid-feedback">
-                                    El stock debe contener un número
+                                <div class="col-sm-6">
+                                    <label for="quantity_stock_edit" class="form-label">Stock disponible</label>
+                                    <input type="number" class="form-control" id="quantity_stock_edit" required>
+                                    <div class="invalid-feedback">
+                                        El stock debe contener un número
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                <label for="category_id_edit" class="form-label">Categoría</label>
-                                <select class="form-select" id="category_id_edit" required>
+                                <div class="col-sm-6">
+                                    <label for="category_id_edit" class="form-label">Categoría</label>
+                                    <select class="form-select" id="category_id_edit" required>
                                     <option selected disabled value="">Selecciona la categoría</option>
                                     <option value="2">Accesorios para Vehículos</option>
                                     <option value="3">Agro</option>
@@ -256,37 +245,37 @@
                                     <option value="29">Servicios</option>
                                     <option value="30">Otras Categorías</option>
                                 </select>
-                                <div class="invalid-feedback">
-                                    Debes seleccionar una categoría
+                                    <div class="invalid-feedback">
+                                        Debes seleccionar una categoría
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Editar producto</button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Editar producto</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- FOOTER -->
-    <footer id="footerGeneral" class="container pt-4">
-    </footer>
-</main>
+        <!-- FOOTER -->
+        <footer id="footerGeneral" class="container pt-4">
+        </footer>
+    </main>
 
-<script src="./assets/js/config.js"></script>
-<script src="./assets/js/login.js"></script>
-<script src="./assets/js/product.js"></script>
-<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./assets/dist/js/form-validation.js"></script>
-<script src="./assets/js/fontawesome.min.js"></script>
-<script src="./assets/js/login.js"></script>
-<script src="./assets/js/menu.js"></script>
-<script src="./assets/js/footer.js"></script>
-<script src="./assets/js/storage.js"></script>
+    <script src="./assets/js/config.js"></script>
+    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/product.js"></script>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/dist/js/form-validation.js"></script>
+    <script src="./assets/js/fontawesome.min.js"></script>
+    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/menu.js"></script>
+    <script src="./assets/js/footer.js"></script>
+    <script src="./assets/js/storage.js"></script>
 </body>
 
 </html>

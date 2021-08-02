@@ -1,7 +1,6 @@
-
 const { sequelize, DataTypes } = require('../db/conexion');
 
-const Addresses = sequelize.define('Addresses',{
+const Addresses = sequelize.define('Addresses', {
     address_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -34,11 +33,11 @@ const Addresses = sequelize.define('Addresses',{
         allowNull: false,
     },
     number: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.STRING(10),
         allowNull: true,
     },
     inner_number: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.STRING(10),
         allowNull: true,
     },
     street1: {
@@ -65,3 +64,34 @@ const Addresses = sequelize.define('Addresses',{
     updatedAt: 'updated_at',
     createdAt: 'created_at'
 });
+
+async function CreateAdress(address) {
+    try {
+        //console.log('Dentro de createAddress');
+        //console.log(address);
+        //Creación de Dirección
+        let creacionStatus = await Addresses.create({
+            fullname: address.fullname,
+            postal_code: address.postal_code,
+            state: address.state,
+            city_hall: address.city_hall,
+            colony: address.colony,
+            street: address.street,
+            number: address.number,
+            inner_number: address.inner_number,
+            street1: address.street1,
+            street2: address.street2,
+            mobile_number: address.mobile_number,
+            additional_info: address.additional_info,
+            is_office: 0
+        });
+
+        return creacionStatus;
+    } catch (error) {
+        throw new Error('Error en la función CreateAdress: ' + error.message);
+    }
+}
+
+module.exports = {
+    CreateAdress,
+}

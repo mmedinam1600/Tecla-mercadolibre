@@ -38,15 +38,15 @@ async function load() {
             <li><a class="dropdown-item" href="login.html">Iniciar Sesión</a></li>
             `
         document.getElementById('imgProfile').setAttribute('src', './assets/brand/noAuthentication.jpg');
-
     }
+
     if (status_session.type != undefined && status_session.type == 3) {
         const nombre = document.createElement('li');
         nombre.innerHTML = `<div class="dropdown-item text-muted"><span>${status_session.user.name}#</span><span id="user_id">${status_session.user.id}</span></div>`;
         document.getElementById('profile').append(nombre);
         document.getElementById('ListUsers').innerHTML = '' +
             `<a class="nav-link" id="listUsers" href="list_users.html">Lista Usuarios</a>`;
-        document.getElementById('ListProducts').innerHTML= `
+        document.getElementById('ListProducts').innerHTML = `
             <a class="nav-link" id="listProducts" href="products.html">Lista Productos</a>`;
     }
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { UserCreate, ListUsers, checkUser, deleteUser, Userupdate } = require('../controllers/users.controller');
+const { UserCreate, ListUsers, checkUser, deleteUser, Userupdate, Profile } = require('../controllers/users.controller');
 const { generarToken, jwt } = require('../services/jwt.service');
 
 const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
@@ -92,6 +92,18 @@ router.put('/editUser/:id', cors(corsOption), LevelAdmin, UserInSession, async(r
         }
     } catch (error) {
         res.status(412).json('Error al listar todos los usuarios: ' + error.message); //412 Precondition Failed  
+    }
+});
+
+router.get('/profile', cors(corsOption), UserInSession, async(req, res) => {
+    try {
+        let token = jwt.decode(req.headers.authorization.split(' ')[1]);
+        let id = token.data.user_id;
+        const result = await Profile(id);
+        console.log(result);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(412).json('Error al listar todos los Propiedades de Perfil: ' + error.message); //412 Precondition Failed  
     }
 });
 

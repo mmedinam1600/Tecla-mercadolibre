@@ -25,12 +25,14 @@ const categoryRoutes = require("./routes/category");
 const productsRoutes = require("./routes/products");
 const trendsRoutes = require("./routes/trends");
 const userRoutes = require("./routes/users");
+const adressRoutes = require("./routes/adresses");
 
 app.use('/search', searchRoutes); //Todas las rutas aqui tendran el prefijo /search
 app.use('/category', categoryRoutes); //Todas las rutas aqui tendran el prefijo /category
 app.use('/products', productsRoutes); //Todas las rutas aqui tendran el prefijo /products
 app.use('/trends', trendsRoutes); //Todas las rutas aqui tendran el prefijo /trends
 app.use('/user', userRoutes); //Todas las rutas aqui tendran el prefijo /user
+app.use('/address', adressRoutes); //Todas las rutas aqui tendran el prefijo /address
 
 const { createModels } = require('./db/createModels');
 

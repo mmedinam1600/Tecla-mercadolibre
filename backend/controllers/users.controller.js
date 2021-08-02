@@ -1,4 +1,4 @@
-const { User, CreateUser, SearchUser, ListAllUsers, isAdmin, DeleteUser, UpdateUser } = require('../models/users.model');
+const { User, CreateUser, SearchUser, ListAllUsers, isAdmin, DeleteUser, UpdateUser, userProfile } = require('../models/users.model');
 const bcrypt = require('bcrypt'); //bcrypt para hashear contraseña
 
 //Estos controladores son llamados desde las rutas de nuestra API
@@ -72,11 +72,22 @@ const Userupdate = async(data, change) => {
     }
 }
 
+const Profile = async(id) => {
+    try {
+        const resultado = await userProfile(id);
+        //console.log(resultado);
+        return resultado;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 module.exports = {
     UserCreate,
     ListUsers,
     isAdminStatus,
     checkUser,
     deleteUser,
-    Userupdate
+    Userupdate,
+    Profile
 }
