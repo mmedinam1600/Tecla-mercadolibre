@@ -20,9 +20,123 @@ async function renderData() {
             "Authorization": `Bearer ${token}`
         }
     });
+
     const response = await apiCall.json();
+
     console.log(response)
-    return response;
+
+    document.getElementById('firstName').value = response.first_name;
+    document.getElementById('lastName').value = response.last_name;
+    document.getElementById('email').value = response.email;
+
+    if (response.domicilios.length > 0) {
+        let domicilios_html = ''
+        for (let index = 0; index < response.domicilios.length; index++) {
+            const domicilio = response.domicilios[index];
+            domicilios_html += '<form id="CreateAddressForm" onsubmit="return SubmitAddress(event)"><div class="row"><div class="col-sm-12">' +
+                '<label for="fullNametoRecive" class="form-label">Autorizado para recibir, nombre(s) completo(s)</label>' +
+                `<input type="text" class="form-control" id="fullNametoRecive" placeholder="" value="${domicilio.fullname}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="colonia" class="form-label">Colonia</label>' +
+                `<input type="text" class="form-control" id="colonia" placeholder="" value="${domicilio.colony}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="calle" class="form-label">Calle</label>' +
+                `<input type="text" class="form-control" id="calle" placeholder="" value="${domicilio.street}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="numeroInterior" class="form-label">Número Interior</label>' +
+                `<input type="text" class="form-control" id="numeroInterior" placeholder="Puede colocar S/N" value="${domicilio.inner_number}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="numeroExterior" class="form-label">Número Exterior</label>' +
+                `<input type="text" class="form-control" id="numeroExterior" placeholder="Puede colocar S/N" value="${domicilio.number}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="calleReferenciaUno" class="form-label">Calle de Referencia 1</label>' +
+                `<input type="text" class="form-control" id="calleReferenciaUno" placeholder="" value="${domicilio.street1}">` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="calleReferenciaDos" class="form-label">Calle de Referencia 2</label>' +
+                `<input type="text" class="form-control" id="calleReferenciaDos" placeholder="" value="${domicilio.street2}">` +
+                '<div class="invalid-feedback">' +
+                'Valid last name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="telefonoDomicilio" class="form-label">Teléfono en Domicilio</label>' +
+                `<input type="tel" class="form-control" id="telefonoDomicilio" placeholder="" value="${domicilio.mobile_number}">` +
+                '<div class="invalid-feedback">' +
+                'Valid first name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-sm-6">' +
+                '<label for="indicacionesAdicionales" class="form-label">Indicaciones Adicionales</label>' +
+                `<input type="tel" class="form-control" id="indicacionesAdicionales" placeholder="" value="${domicilio.additional_info}">` +
+                '<div class="invalid-feedback">' +
+                'Valid first name is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-md-4">' +
+                '<label for="state" class="form-label">Estado</label>' +
+                `<input type="text" class="form-control" id="state" value="${domicilio.state}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid Estado is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-md-5">' +
+                '<label for="country" class="form-label">Delegación o Municipio</label>' +
+                `<input type="text" class="form-control" id="country" value="${domicilio.city_hall}" required>` +
+                '<div class="invalid-feedback">' +
+                'Valid Delegación is required.' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="col-md-3">' +
+                '<label for="zip" class="form-label">Código Postal</label>' +
+                `<input type="text" class="form-control" id="zip" value="${domicilio.postal_code}" required>` +
+                '<div class="invalid-feedback">' +
+                'Zip code required.' +
+                '</div>' +
+                '</div>' +
+                '<div class="row p-4">' +
+                '<div class="col"><input type="submit" id="btGuardarDomicilio" value="Actualizar" class="btn btn-success" disabled/>  ' +
+                '  <input type="button" id="btRemoveDomicilio" value="Borrar" class="btn btn-secondary" onclick="" disabled/>' +
+                '</div>' +
+                '</div></div></form>';;
+        }
+        document.getElementById('domiciliosUser').innerHTML = domicilios_html;
+    }
+
 }
 
 function addDomicilio() {
@@ -155,14 +269,10 @@ async function CreateAdress(adresses) {
 
     console.log(response)
 
-    /*if (response.user != undefined) {
-        document.getElementById('CreateForm').reset();
-        document.getElementById('email').removeAttribute('style');
-        return '<h5 class="p-4" style="color:green;">' + response.user + ' <a href="login.html">iniciar sesión<a> </h5>';
-    } else {
-        document.getElementById('email').setAttribute("style", "border-color:red !important; background-image:none !important");
-        return '<p style="color:red">' + response.message + '</p>';
-    }*/
+    if (response) {
+        location.reload();
+    }
+
 }
 
 async function SubmitAddress(event) {

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { validateId  } = require('../middleware/index');
-const {  getProductsByIds } = require("../services/product.service");
+const { validateId } = require('../middleware/index');
+const { getProductsByIds } = require("../services/product.service");
 const { verifyProduct } = require('../middleware/midd.product');
 const { LevelAdmin, UserInSession } = require('../middleware/midd.users');
 const product = require('../controllers/products.controller');
@@ -11,12 +11,12 @@ const product = require('../controllers/products.controller');
  * Route GET http://localhost:3000/products
  * Description. Devolvemos un arreglo de productos por su ID
  */
-router.get('/', validateId, async (req, res) => {
+router.get('/', validateId, async(req, res) => {
     try {
         const { id } = req.query; //Obtenemos las ids que nos manden por parametros
         const products = await getProductsByIds(id); //Obtenemos un arreglo de productos encontrados
         res.status(200).json(products); //Devolvemos este arreglo y una respuesta exitosa
-    } catch (e){
+    } catch (e) {
         console.error(`Ocurrio un error al procesar la ruta GET /products Error: ${e.message}`);
         res.status(400).json({ 'error': `${e.message}` }); // El servidor no entendio su petición y devolvemos un mensaje de error
         throw new Error(`Ocurrio un error al procesar la ruta GET /products. Error: ${e.message}`);
@@ -29,7 +29,7 @@ router.get('/', validateId, async (req, res) => {
  * Params. limit[number] | category[number] | query[string] seller_id[number] | product_id[number]
  * Description. Devuelve todos los productos de nuestra DB
  */
-router.get('/ours', async (req, res) => {
+router.get('/ours', async(req, res) => {
     try {
         const params = req.query;
         const products = await product.getProducts(params);
@@ -46,7 +46,7 @@ router.get('/ours', async (req, res) => {
  * Route POST http://localhost:3000/products/ours
  * Description. Agrega un nuevo producto a la BD
  */
-router.post('/ours', verifyProduct, async (req, res) => {
+router.post('/ours', verifyProduct, async(req, res) => {
     try {
         const data = req.body;
         const user_id = 1; //Ahorita todos los productos se agregaran con el usuario 1.
@@ -67,7 +67,7 @@ router.post('/ours', verifyProduct, async (req, res) => {
  * Route PUT http://localhost:3000/products/ours
  * Description. Modifica un producto de la BD
  */
-router.put('/ours/:id', verifyProduct, async (req, res) => {
+router.put('/ours/:id', verifyProduct, async(req, res) => {
     try {
         const data = req.body;
         data['product_id'] = req.params.id;
@@ -90,7 +90,8 @@ router.put('/ours/:id', verifyProduct, async (req, res) => {
  * Params. limit[number] | category[number] | query[string] seller_id[number] | product_id[number]
  * Description. Devuelve todos los productos de nuestra DB
  */
-router.delete('/ours/:id', LevelAdmin, UserInSession, async (req, res) => {
+router.delete('/ours/:id', UserInSession, async(req, res) => {
+    //Se removió el midd LevelAdmin para permitir la gestion de los productos desde otros niveles de usuario
     try {
         const id = req.params.id;
         const products = await product.removeProduct(id);

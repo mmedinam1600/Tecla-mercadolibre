@@ -41,13 +41,13 @@
             <div class="row g-3">
                 <div class="col-md-12 col-lg-12">
                     <h4 class="mb-3">Datos de usuario</h4>
-                    <form class="needs-validation" novalidate>
+                    <form id="editProfile" class="needs-validation" novalidate>
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Nombre(s)</label>
                                 <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    Valid first name is required.
+                                    Valid first Nombre(s) is required.
                                 </div>
                             </div>
 
@@ -55,51 +55,56 @@
                                 <label for="lastName" class="form-label">Apellidos</label>
                                 <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
                                 <div class="invalid-feedback">
-                                    Valid last name is required.
+                                    Valid last Apellidos is required.
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <label for="email" class="form-label">Correo electrónico </label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com" disabled>
                                 <div class="invalid-feedback">
                                     Please enter a valid email address for shipping updates.
                                 </div>
                             </div>
 
+                            <div class="col-2">
+                                <label for="telefono" class="form-label">Código de país</label>
+                                <input type="text" class="form-control" id="country_code" placeholder="" value="" required disabled>
+                                <div class="invalid-feedback">
+                                    Valid first Código de país is required.
+                                </div>
+                            </div>
+
+                            <div class="col-10">
+                                <label for="telefono" class="form-label">Teléfono de contacto</label>
+                                <input type="tel" class="form-control" id="telefono" placeholder="" value="" required disabled>
+                                <div class="invalid-feedback">
+                                    Valid first telefono is required.
+                                </div>
+                            </div>
+
                             <div class="col-sm-6">
                                 <label for="password" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="password" placeholder="" value="" required>
-                                <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
+                                <input type="password" class="form-control" id="password" placeholder="" value="" disabled>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="confirm-password" class="form-label">Confirmar contraseña</label>
-                                <input type="password" class="form-control" id="confirm-password" placeholder="" value="" required>
-                                <div class="invalid-feedback">
-                                    Valid last name is required.
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <label for="telefono" class="form-label">Teléfono de contacto</label>
-                                <input type="tel" class="form-control" id="telefono" placeholder="" value="" required>
-                                <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
+                                <input type="password" class="form-control" id="confirm-password" placeholder="" value="" disabled>
                             </div>
 
                         </div>
 
                         <div class="col-md-4 pt-4">
-                            <button class="btn btn-primary" type="submit">Guardar Datos</button>
+                            <button class="btn btn-primary" type="submit" disabled>Guardar Datos</button>
                         </div>
                     </form>
 
                     <div id="domicilios" class="pt-4">
                         <input type="button" id="btAddDomicilio" value="Añadir Domicilio" class="btn btn-success" onclick="addDomicilio();" />
+                    </div>
+
+                    <div id="domiciliosUser" class="pt-4">
                     </div>
                 </div>
             </div>

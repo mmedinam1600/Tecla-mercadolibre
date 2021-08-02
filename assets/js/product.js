@@ -112,12 +112,12 @@ async function CreateProduct(title, thumbnail, unit_price, condition, quantity_s
 const table = document.getElementById('table_body');
 
 async function loadProducts() {
-    let ArrayUser = await accessPage();
-    console.log(ArrayUser)
-    if (ArrayUser.error != undefined) {
+    //let ArrayUser = await accessPage();
+    //console.log(ArrayUser)
+    /*if (ArrayUser.error != undefined) {
         alert('Acceso no autorizado');
         location.href = "login.html";
-    }
+    }*/
     const token = await Login.recuperarUsuario();
     const apiCall = await fetch(`${host}:${port}/products/ours`, {
         method: 'get',
@@ -129,7 +129,7 @@ async function loadProducts() {
     });
     const response = await apiCall.json();
     console.log(response);
-    response.products.forEach( product => {
+    response.products.forEach(product => {
         renderProduct(product);
     });
 }
@@ -182,17 +182,17 @@ async function deleteProduct(id) {
 }
 
 const accessPage = async() => {
-    const token = await Login.recuperarUsuario();
-    const apiCall = await fetch(`${host}:${port}/user/list-users`, {
-        method: 'get',
-        headers: {
-            "Accept": "*/*",
-            "Content-type": 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
-    });
-    const response = await apiCall.json();
-    return response;
+    //const token = await Login.recuperarUsuario();
+    //const apiCall = await fetch(`${host}:${port}/user/list-users`, {
+    //    method: 'get',
+    //    headers: {
+    //        "Accept": "*/*",
+    //        "Content-type": 'application/json',
+    //        "Authorization": `Bearer ${token}`
+    //    }
+    //});
+    //const response = await apiCall.json();
+    //return response;
 }
 
 var modalEditProduct = document.getElementById('modalEditProduct')
@@ -217,7 +217,7 @@ modalEditProduct.addEventListener('show.bs.modal', function(event) {
     product_id.value = recipient.product_id;
     console.log(condition.options);
     let idCondicion;
-    if(recipient.condition === "Nuevo") idCondicion = 1;
+    if (recipient.condition === "Nuevo") idCondicion = 1;
     else idCondicion = 2;
     condition.options[idCondicion].setAttribute('selected', true);
     category_id.options[recipient.category_id - 1].setAttribute('selected', true);

@@ -258,6 +258,7 @@ async function userProfile(id) {
                     street2: direccion.street2,
                     mobile_number: direccion.mobile_number,
                     additional_info: direccion.additional_info,
+                    postal_code: direccion.postal_code,
                 });
             }
             user.domicilios = domicilios_user;
