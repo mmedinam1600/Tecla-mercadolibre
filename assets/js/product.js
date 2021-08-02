@@ -129,6 +129,12 @@ async function loadProducts() {
     });
     const response = await apiCall.json();
     console.log(response);
+    if (response.products.length == 0) {
+        document.getElementsByClassName('content-to-charge')[0].innerHTML = `<main class="text-center px-3">` +
+            `<h3>Aún no eres un vendedor</h3>` +
+            `<p class="lead">No tienes productos, puedes añadir un producto e iniciar tu camino como vendedor</p>` +
+            `</main>`;
+    }
     response.products.forEach(product => {
         renderProduct(product);
     });
@@ -179,6 +185,7 @@ async function deleteProduct(id) {
     alert(`${response.message}`);
     const row = document.getElementById(`${id}`);
     row.innerHTML = "";
+    location.reload();
 }
 
 const accessPage = async() => {
